@@ -5,12 +5,12 @@ import './themePage.scss';
 
 const ThemePage = () => {
     return (
-    <div className='theme-page'>
-        <Sidebar />
-        <div className="theme-page__container">
-            <Navbar/> 
+        <div className='theme-page'>
+            <Sidebar />
+            <div className='theme-page__container'>
+                <Navbar />
+            </div>
         </div>
-    </div>
     );
 };
 

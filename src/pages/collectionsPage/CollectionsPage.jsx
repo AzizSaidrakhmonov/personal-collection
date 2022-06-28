@@ -6,9 +6,9 @@ import Navbar from '../../components/navbar/Navbar';
 const CollectionsPage = () => {
     return (
         <div className='collections-page'>
-            <Sidebar/>
-            <div className="collections-page__container">
-                <Navbar/>
+            <Sidebar />
+            <div className='collections-page__container'>
+                <Navbar />
             </div>
         </div>
     );

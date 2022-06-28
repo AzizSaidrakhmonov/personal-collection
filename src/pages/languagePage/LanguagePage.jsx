@@ -6,11 +6,11 @@ import './languagePage.scss';
 const LanguagePage = () => {
     return (
         <div className='language-page'>
-        <Sidebar />
-        <div className="language-page__container">
-            <Navbar/>
+            <Sidebar />
+            <div className='language-page__container'>
+                <Navbar />
+            </div>
         </div>
-    </div>
     );
 };
 

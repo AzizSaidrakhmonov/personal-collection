@@ -8,7 +8,7 @@ const CabinetPage2 = () => {
     return (
         <div className='cabinet-page2'>
             <Sidebar />
-            <div className="cabinet-page2__container">
+            <div className='cabinet-page2__container'>
                 <Navbar />
                 <Cabinet2 />
             </div>

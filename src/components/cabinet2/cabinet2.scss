@@ -1,6 +1,5 @@
 $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
 
-
 .cabinet2 {
     margin-top: 50px;
 
@@ -37,7 +36,7 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                padding: 4px ;
+                padding: 4px;
 
                 &-top {
                     position: relative;
@@ -58,12 +57,9 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
                 }
 
                 .form-btn {
-                   padding: 2px 20px !important; 
+                    padding: 2px 20px !important;
                 }
             }
-
-            
         }
-
     }
 }

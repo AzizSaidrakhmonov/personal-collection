@@ -7,10 +7,10 @@ import './cabinetPage.scss';
 const CabinetPage = () => {
     return (
         <div className='cabinet-page'>
-            <Sidebar/>
-            <div className="cabinet-page__container">
-                <Navbar/>
-                <Cabinet/>
+            <Sidebar />
+            <div className='cabinet-page__container'>
+                <Navbar />
+                <Cabinet />
             </div>
         </div>
     );

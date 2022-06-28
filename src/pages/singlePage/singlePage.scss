@@ -1,0 +1,71 @@
+
+$box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+
+.single {
+    display: flex;
+    width: 100%;
+
+    &-container {
+        flex: 6;
+
+        .user-information {
+            width: 40%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            margin-top: 120px;
+            box-shadow: $box-shadow;
+            background: #fff;
+            border-radius: 10px;
+
+            .top {      
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .title {
+                    font-size: 20px;
+                    color: #888;
+                    margin: 0;
+                }
+
+                .edit-btn {
+                    border: none;
+                    font-size: 14px;
+                    background: #5a22dc;
+                    color: #fff;
+                    padding: 2px 8px;
+                    border-radius: 5px;
+                }
+            }
+
+            .item {
+                margin-top: 20px;
+
+                &-wrapper {
+                    padding: 10px 0px;
+
+                    &__inner {
+                        color: #888;
+                        font-size: 16px;
+                        font-weight: 600;
+                    }
+
+                    .name {
+                        font-size: 27px;
+                        font-weight: 600; 
+                        margin-left: 10px;
+                    }
+
+                    .email, .password, .id {
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin-left: 10px;
+                    }
+                }
+            }
+                
+        }
+    }
+}

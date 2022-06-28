@@ -1,17 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import './LoginStyle.scss';
+import React from 'react';
+import './login.scss';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import {useNavigate} from 'react-router';
 import axios from 'axios';
-import {Istatus} from '../helpers/interfaces';
-import { setStatusFunc } from '../helpers/setStatus';
 
 const Login = () => {
 
     const navigate = useNavigate();
-    const [status, setStatus] = useState('');
-    const statusText = useRef(null);
 
 
     const handleSubmit = async(e) => {
@@ -19,23 +15,16 @@ const Login = () => {
 
         const {email, password} = e.target.elements;
 
-        const res = await axios.post('.../login', {
+        const res = await axios.post('http://10.10.1.138:8080/api/auth/login', {
             email: email.value,
             password: password.value
         });
 
-        const statusValue: Istatus = setStatusFunc(res.data.status);
+        console.log(res.data);
 
-        setStatus(statusValue.massage);
-        statusText.current?.classList.add(statusValue.massage);
-
-        setTimeout(() => {
-            statusText.current?.classList.remove(statusValue.massage);
-        }, statusValue.time);
-
-        if(res.data.status === 200) {
+        if(res.data.statusCode === 200) {
             setTimeout(() => {
-                navigate(`/mainPage/${res.data.token}`);
+                navigate(`/home/${res.data.accessToken}`);
             }, 1000)
         }
 
@@ -68,8 +57,6 @@ const Login = () => {
                         className='login-page__input form-control'
                     />
                 </div>
-               
-                <p className="login-page__status" ref={statusText}>{status}</p>
 
                 <input 
                     type='submit'

@@ -1,0 +1,12 @@
+.home {
+    display: flex;
+
+    &-container {
+        flex: 6;
+
+        .home-collections {
+            // display: flex;
+            padding: 20px;
+        }
+    }
+}

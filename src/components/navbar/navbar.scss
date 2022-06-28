@@ -1,0 +1,42 @@
+
+$white-color: #ffffff;
+$box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 50px;
+    margin: 20px;
+
+    &-button {
+        cursor: pointer;
+    }
+
+    &-search {
+        margin-left: 20px;
+        position: relative;
+
+        input {
+            padding: 6px 10px;
+            border: none;
+            width: 250px;
+            border-radius: 3px;
+            box-shadow: $box-shadow ;
+
+            &:focus {
+                z-index: 2;
+                background: $white-color;
+                outline: none;
+                width: 400px;
+                transition: all .3s;
+            }
+        }
+
+        &__icon {
+            position: absolute;
+            top: 6px;
+            right: 4px;
+        }
+    }
+}

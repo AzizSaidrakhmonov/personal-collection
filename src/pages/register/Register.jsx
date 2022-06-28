@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import './RegisterStyle.scss';
+import React, {useEffect} from 'react';
+import './register.scss';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -8,32 +8,34 @@ import { useNavigate } from 'react-router';
 const Register = () => {
 
     const navigate = useNavigate();
-    const [status, setStatus] = useState('');
-    const statusText = useRef(null);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        console.log(e.target.elements.role.value)
         const { name, email, password, role} = e.target.elements;
 
-        const res = await axios.post('.../new-user', {
-            name: name.value ? name.value : '',
+        const res = await axios.post('http://itransitionlasttask.herokuapp.com/api/auth/register', {
+            name: name.value,
             email: email.value,
             password: password.value,
             role: role.value
         });
 
-        if(res.data.status === 200){
-            alert('Successfully registered');
+        console.log(res)
+
+        if(res.data.statusCode === 200){
             
             setTimeout(() => {
-                navigate(`/mainPage/${res.data.token}`);
+                navigate(`/${res.data.accessToken}`);
             }, 1000)
-        } else {
-            alert('This username is taken, pls try again')
         }
 
 
     }
+
+    useEffect(() => {
+        handleSubmit()
+    }, []);
 
     return (
         <div className='register-page'>
@@ -76,9 +78,9 @@ const Register = () => {
                 <div className='register-page__input mt-3'>
                     <label htmlFor='role'>Role</label>
 
-                    <select name='role' id='role' className='form-select'>
-                        <option className='register-page__option' value='admin'>Admin</option>
-                        <option className='register-page__option' value='user'>User</option>
+                    <select id='role' className='form-select'>
+                        <option className='register-page__option' name='role' value='ROLE_ADMIN'>Admin</option>
+                        <option className='register-page__option' name='role' value='ROLE_USER'>User</option>
                     </select>
                 </div>
                 <input 

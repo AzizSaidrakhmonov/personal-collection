@@ -1,0 +1,41 @@
+$box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+
+
+.users {
+    margin: 70px 20px;
+
+    .actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        input {
+            border: none;
+            padding: 4px 10px;
+            font-size: 14px;
+            box-shadow: $box-shadow;
+            border-radius: 3px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .action-btn {
+            padding: 0 4px !important;    
+            margin: 10px;
+        }
+    }
+
+
+    .users-grid {
+        height: 380px;
+        background: #fff;
+        box-shadow: $box-shadow;
+    }
+}
+
+.btn-primary {
+    padding: 0 4px !important; 
+}

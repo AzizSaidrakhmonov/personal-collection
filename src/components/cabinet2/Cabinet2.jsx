@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './cabinet2.scss';
 import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import CloseIcon from '@mui/icons-material/Close';
 
 const Cabinet2 = () => {
+
     const [file, setFile] = useState('');
     const [modal, setModal] = useState(false);
    
-    console.log(file)
     return (
         <div className='cabinet2'>
             <div className='cabinet2-top'>

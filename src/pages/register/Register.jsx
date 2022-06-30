@@ -24,7 +24,6 @@ const Register = () => {
         if (res.data.statusCode === 200) {
 
             localStorage.setItem('accessToken', res.data.accessToken);
-
             localStorage.setItem('email', email.value);
 
             console.log(email.value)

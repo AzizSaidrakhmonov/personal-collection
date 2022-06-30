@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './cabinet.scss';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Cabinet = () => {
-    // const user = JSON.parse(window.localStorage.getItem('user'));
-    // console.log(user);
+    const [oneUser, setOneUser] = useState([]);
+
+    const accessToken = localStorage.getItem('accessToken');
+    const userEmail = localStorage.getItem('email');
+
+    const getOneUser = async () => {
+        try {
+            const res2 = await axios.get(`http://itransitionlasttask.herokuapp.com/api/user/get/${userEmail}`, {
+                headers: {
+                    accessToken: `${accessToken}`,
+                },
+            });
+
+            setOneUser(res2.data.data);
+            // console.log(res2.data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    console.log(oneUser)
+
+    useEffect(() => {
+        getOneUser();
+    }, []);
+
     return (
         <div className='cabinet'>
             <div className='cabinet-container'>
@@ -16,19 +41,19 @@ const Cabinet = () => {
                     <div className='item'>
                         <div className='item-wrapper'>
                             <span className='item-wrapper__inner'>Name:</span>
-                            <span className='name'></span>
-                        </div>
-                        <div className='item-wrapper'>
-                            <span className='item-wrapper__inner'>Id:</span>
-                            <span className='id'></span>
+                            <span className='name'>{oneUser.name}</span>
                         </div>
                         <div className='item-wrapper'>
                             <span className='item-wrapper__inner'>Email:</span>
-                            <span className='email'>asaydraxmonov@gmail.com</span>
+                            <span className='email'>{oneUser.email}</span>
                         </div>
                         <div className='item-wrapper'>
-                            <span className='item-wrapper__inner'>Password:</span>
-                            <span className='password'>012102901290</span>
+                            <span className='item-wrapper__inner'>Role:</span>
+                            <span className='id'>{oneUser.role}</span>
+                        </div>
+                        <div className='item-wrapper'>
+                            <span className='item-wrapper__inner'>Status:</span>
+                            <span className='id'>{oneUser.state}</span>
                         </div>
                     </div>
                 </div>

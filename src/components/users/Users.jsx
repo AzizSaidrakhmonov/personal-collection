@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 import { UserContext } from '../../context/UserContext';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 

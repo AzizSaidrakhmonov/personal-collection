@@ -21,8 +21,13 @@ const Login = () => {
         console.log(res.data);
 
         if (res.data.statusCode === 200) {
+            localStorage.setItem('accessToken', res.data.accessToken);
+            localStorage.setItem('email', email.value);
+
+            console.log(email.value)
+
             setTimeout(() => {
-                navigate(`/home/${res.data.accessToken}`);
+                navigate('/');
             }, 1000);
         }
     };

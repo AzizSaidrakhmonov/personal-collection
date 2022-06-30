@@ -13,7 +13,7 @@ const Login = () => {
 
         const { email, password } = e.target.elements;
 
-        const res = await axios.post('http://10.10.1.138:8080/api/auth/login', {
+        const res = await axios.post('http://itransitionlasttask.herokuapp.com/api/auth/login', {
             email: email.value,
             password: password.value,
         });

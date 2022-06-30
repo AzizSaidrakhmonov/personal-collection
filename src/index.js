@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import {BrowserRouter, Routes, Route} from 'react-router-dom';
-
+import { ToggleSidebar } from './context/ToggleSidebar';
 import App from './App';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(
+<ToggleSidebar>
+    <App />
+</ToggleSidebar>
+);

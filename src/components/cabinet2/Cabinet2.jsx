@@ -7,7 +7,8 @@ import CloseIcon from '@mui/icons-material/Close';
 const Cabinet2 = () => {
     const [file, setFile] = useState('');
     const [modal, setModal] = useState(false);
-
+   
+    console.log(file)
     return (
         <div className='cabinet2'>
             <div className='cabinet2-top'>
@@ -24,11 +25,14 @@ const Cabinet2 = () => {
                             <div className='wrapper wrapper-top'>
                                 <input type='text' placeholder='Topic' className='cabinet2-main__form-input' required />
                                 <CloseIcon
-                                    onClick={() => setModal(false)}
-                                    className='btn btn-primary close-modal__icon'
+                                    onClick={() => {
+                                        setModal(false);
+                                        setFile('');
+                                    }}
+                                    className='close-modal__icon'
                                 />
                             </div>
-                            <div className='wrapper'>
+                            <div className='wrapper upload-photo'>
                                 <img
                                     src={
                                         file
@@ -36,6 +40,8 @@ const Cabinet2 = () => {
                                             : 'https://www.colliver.io/wp-content/themes/consultix/images/no-image-found-360x260.png'
                                     }
                                 />
+
+                           
                                 <label htmlFor='file'>
                                     Choose an Image: <DriveFileMoveIcon className='label-icon' />
                                 </label>
@@ -58,15 +64,15 @@ const Cabinet2 = () => {
                                     className='cabinet2-main__form-input'
                                     required
                                 />
-                            </div>
-                            <div className='wrapper'>
-                                <input
+                                <button
                                     type='submit'
-                                    value='Add'
-                                    className='cabinet2-main__form-input form-btn btn btn-primary'
-                                    required
-                                />
+                                    className='cabinet2-main__form-btn btn btn-primary'
+                                    onClick={(e) => {
+                                        
+                                    }}
+                                >Add</button>
                             </div>
+                    
                         </form>
                     </div>
                 </div>

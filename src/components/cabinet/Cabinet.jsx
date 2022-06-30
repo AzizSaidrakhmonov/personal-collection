@@ -4,6 +4,8 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 
 const Cabinet = () => {
+    // const user = JSON.parse(window.localStorage.getItem('user'));
+    // console.log(user);
     return (
         <div className='cabinet'>
             <div className='cabinet-container'>
@@ -14,11 +16,11 @@ const Cabinet = () => {
                     <div className='item'>
                         <div className='item-wrapper'>
                             <span className='item-wrapper__inner'>Name:</span>
-                            <span className='name'>Aziz</span>
+                            <span className='name'></span>
                         </div>
                         <div className='item-wrapper'>
                             <span className='item-wrapper__inner'>Id:</span>
-                            <span className='id'>00000</span>
+                            <span className='id'></span>
                         </div>
                         <div className='item-wrapper'>
                             <span className='item-wrapper__inner'>Email:</span>
@@ -31,7 +33,7 @@ const Cabinet = () => {
                     </div>
                 </div>
                 <div className='cabinet-btn'>
-                    <Link to='/cabinetPage2'>
+                    <Link to='/personalCabinet/createCollections'>
                         <button className='btn btn-success'>My Collections</button>
                     </Link>
                 </div>

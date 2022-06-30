@@ -1,18 +1,15 @@
 import React from 'react';
-import './singlePage.scss';
-import Sidebar from '../../components/sidebar/Sidebar';
-import Navbar from '../../components/navbar/Navbar';
+import './ownUser.scss';
+import Sidebar from '../sidebar/Sidebar';
+import Navbar from '../navbar/Navbar';
 
-const SinglePage = () => {
+const OwnUser = () => {
     return (
         <div className='single'>
-            <Sidebar />
             <div className='single-container'>
-                <Navbar />
                 <div className='user-information'>
                     <div className='top'>
                         <h1 className='title'>User Information</h1>
-                        <button className='edit-btn'>Edit</button>
                     </div>
                     <div className='item'>
                         <div className='item-wrapper'>
@@ -38,4 +35,4 @@ const SinglePage = () => {
     );
 };
 
-export default SinglePage;
+export default OwnUser;

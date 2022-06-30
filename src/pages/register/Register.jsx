@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './register.scss';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
@@ -8,22 +8,26 @@ import { useNavigate } from 'react-router';
 const Register = () => {
     const navigate = useNavigate();
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(e.target.elements.role.value);
-        const { name, email, password, role } = e.target.elements;
+        const { name, email, password } = e.target.elements;
 
         const res = await axios.post('http://itransitionlasttask.herokuapp.com/api/auth/register', {
             name: name.value,
             email: email.value,
             password: password.value,
-            role: role.value,
         });
 
         console.log(res);
 
         if (res.data.statusCode === 200) {
-            sessionStorage.setItem('accessToken', res.data.accessToken);
+
+            localStorage.setItem('accessToken', res.data.accessToken);
+
+            localStorage.setItem('email', email.value);
+
+            console.log(email.value)
 
             setTimeout(() => {
                 navigate(`/`);
@@ -71,19 +75,6 @@ const Register = () => {
                         minLength={1}
                         className='register-page__input form-control'
                     />
-                </div>
-
-                <div className='register-page__input mt-3'>
-                    <label htmlFor='role'>Role</label>
-
-                    <select id='role' className='form-select'>
-                        <option className='register-page__option' name='role' value='ROLE_ADMIN'>
-                            Admin
-                        </option>
-                        <option className='register-page__option' name='role' value='ROLE_USER'>
-                            User
-                        </option>
-                    </select>
                 </div>
                 <input type='submit' value='Sign Up' className='register-page__submit btn btn-primary mt-4' />
                 <div className='register-page__link-wrapper mt-4'>

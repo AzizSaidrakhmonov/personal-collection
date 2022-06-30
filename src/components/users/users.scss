@@ -1,7 +1,6 @@
-$box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+$box-shadow: 0 2px 8px #00000042;
 
 .users {
-    margin: 70px 20px;
 
     .actions {
         display: flex;
@@ -22,18 +21,24 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
         }
 
         .action-btn {
-            padding: 0 4px !important;
+            // padding: 0 4px !important;
             margin: 10px;
         }
     }
 
     .users-grid {
-        height: 380px;
         background: #fff;
         box-shadow: $box-shadow;
+
+        &__check {
+            border: none;
+        }
+
+        .table-checkbox {
+            width: 1.15em;
+            height: 1.15em;
+            margin-left: 20px;
+        }
     }
 }
 
-.btn-primary {
-    padding: 0 4px !important;
-}

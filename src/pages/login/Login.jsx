@@ -24,7 +24,7 @@ const Login = () => {
             localStorage.setItem('accessToken', res.data.accessToken);
             localStorage.setItem('email', email.value);
 
-            console.log(email.value)
+            console.log(email.value);
 
             setTimeout(() => {
                 navigate('/');

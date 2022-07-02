@@ -5,8 +5,6 @@ import './topCollections.scss';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const TopCollections = () => {
-    
-
     return (
         <div className='collections'>
             <div className='top-collections'>
@@ -41,9 +39,7 @@ const TopCollections = () => {
                     <div className='description'>Description</div>
                 </div>
             </div>
-            <div className='top-items'>
-               
-            </div>
+            <div className='top-items'></div>
         </div>
     );
 };

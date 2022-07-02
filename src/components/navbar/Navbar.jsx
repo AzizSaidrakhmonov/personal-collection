@@ -7,11 +7,11 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-    const {setActiveMenu} = useStateContext();
+    const { setActiveMenu } = useStateContext();
     return (
         <div className='navbar'>
             <div className='navbar-button'>
-                <MenuIcon onClick={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}/>
+                <MenuIcon onClick={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)} />
             </div>
             <div className='navbar-search'>
                 <input autoComplete='true' type='text' name='text' placeholder='Search...' />

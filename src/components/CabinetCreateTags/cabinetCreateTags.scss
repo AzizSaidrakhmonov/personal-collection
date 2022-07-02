@@ -1,6 +1,5 @@
 $box-shadow: 0 2px 8px #00000042;
 
-
 .create-tags__form {
     display: flex;
     justify-content: center;
@@ -10,8 +9,7 @@ $box-shadow: 0 2px 8px #00000042;
     width: 25%;
     margin: 0 auto;
     border-radius: 5px;
-    transition: all .5s;
-
+    transition: all 0.5s;
 
     &-btn {
         padding: 2px 20px !important;
@@ -28,26 +26,23 @@ $box-shadow: 0 2px 8px #00000042;
             outline: none;
         }
     }
-        form {
+    form {
+        display: flex;
+        flex-direction: column;
+        margin: 15px 0;
+
+        .wrapper {
             display: flex;
-            flex-direction: column;
-            margin: 15px 0;
-            
-
-            .wrapper {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin: 5px;
-
-            }
-        }
-        
-        .close-modal__icon {
-            margin-left: 200px;
-            &:hover {
-                cursor: pointer;
-            }
+            justify-content: center;
+            align-items: center;
+            margin: 5px;
         }
     }
 
+    .close-modal__icon {
+        margin-left: 200px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

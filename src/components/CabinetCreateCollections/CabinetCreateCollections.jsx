@@ -7,35 +7,33 @@ import { UserContext } from '../../context/UserContext';
 import axios from 'axios';
 
 const CabinetCreateCollections = () => {
-
-    const {oneUser} = useContext(UserContext);
+    const { oneUser } = useContext(UserContext);
     // console.log(oneUser.id)
 
     const [file, setFile] = useState('');
     const [modal, setModal] = useState(false);
 
-    const sendCreatedCollection = async(e) => { 
+    const sendCreatedCollection = async (e) => {
         e.preventDefault();
 
-        const {topic, file, name, description} = e.target.elements;
+        const { topic, file, name, description } = e.target.elements;
 
         const res = await axios.post(`http://itransitionlasttask.herokuapp.com/api/collection/add/${oneUser.id}`, {
             topic: topic.value,
-            file: file.value, 
+            file: file.value,
             name: name.value,
-            description: description.value
-        })
-        console.log(res)
+            description: description.value,
+        });
+        console.log(res);
 
-        if(res.data.statusCode === 200) {
+        if (res.data.statusCode === 200) {
         }
-
-    }
+    };
 
     useEffect(() => {
         sendCreatedCollection();
     }, []);
-   
+
     return (
         <div className='cabinet2'>
             <div className='cabinet2-top'>
@@ -50,12 +48,12 @@ const CabinetCreateCollections = () => {
                     <div className='cabinet2-main__form '>
                         <form onSubmit={sendCreatedCollection}>
                             <div className='wrapper wrapper-top'>
-                                <input 
-                                    type='text' 
-                                    name='topic' 
-                                    placeholder='Topic' 
-                                    required 
-                                    className='cabinet2-main__form-input' 
+                                <input
+                                    type='text'
+                                    name='topic'
+                                    placeholder='Topic'
+                                    required
+                                    className='cabinet2-main__form-input'
                                 />
                                 <CloseIcon
                                     onClick={() => {
@@ -72,11 +70,9 @@ const CabinetCreateCollections = () => {
                                             ? URL.createObjectURL(file)
                                             : 'https://www.colliver.io/wp-content/themes/consultix/images/no-image-found-360x260.png'
                                     }
-
                                     alt='create-collection'
                                 />
 
-                           
                                 <label htmlFor='file'>
                                     Choose an Image: <DriveFileMoveIcon className='label-icon' />
                                 </label>
@@ -91,12 +87,12 @@ const CabinetCreateCollections = () => {
                                 />
                             </div>
                             <div className='wrapper'>
-                                <input 
-                                    type='text' 
-                                    name='name' 
-                                    placeholder='Name' 
-                                    required 
-                                    className='cabinet2-main__form-input' 
+                                <input
+                                    type='text'
+                                    name='name'
+                                    placeholder='Name'
+                                    required
+                                    className='cabinet2-main__form-input'
                                 />
                             </div>
                             <div className='wrapper'>
@@ -107,12 +103,10 @@ const CabinetCreateCollections = () => {
                                     required
                                     className='cabinet2-main__form-input'
                                 />
-                                <button
-                                    type='submit'
-                                    className='cabinet2-main__form-btn btn btn-primary'
-                                >Add</button>
+                                <button type='submit' className='cabinet2-main__form-btn btn btn-primary'>
+                                    Add
+                                </button>
                             </div>
-                    
                         </form>
                     </div>
                 </div>

@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router';
 const Register = () => {
     const navigate = useNavigate();
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { name, email, password } = e.target.elements;
@@ -22,11 +21,10 @@ const Register = () => {
         console.log(res);
 
         if (res.data.statusCode === 200) {
-
             localStorage.setItem('accessToken', res.data.accessToken);
             localStorage.setItem('email', email.value);
 
-            console.log(email.value)
+            console.log(email.value);
 
             setTimeout(() => {
                 navigate(`/`);

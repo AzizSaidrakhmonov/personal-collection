@@ -1,12 +1,11 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import './cabinet.scss';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 
 const Cabinet = () => {
-
-    const {oneUser} = useContext(UserContext);
+    const { oneUser } = useContext(UserContext);
 
     // console.log(oneUser);
 

@@ -9,7 +9,6 @@ const CabinetCreateTags = () => {
 
     // const accessToken = localStorage.getItem('accessToken');
 
-
     const sendCreatedTag = async (e) => {
         e.preventDefault();
 

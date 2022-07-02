@@ -8,8 +8,8 @@ import { UserContext } from '../../context/UserContext';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const Users = () => {
-    const {users} = useContext(UserContext);
-    
+    const { users } = useContext(UserContext);
+
     const [selectText, setSelectText] = useState('');
     const [selected, setSelected] = useState([]);
     const [search, setSearch] = useState('');
@@ -21,56 +21,54 @@ const Users = () => {
     useEffect(() => {
         selected.length === users?.length ? setSelectText('Remove All') : setSelectText('Select All');
     }, [selected, toggle]);
-   
-   
+
     const handleChange = (e) => {
-        const id = +(e.target.value);
-        if(selected?.includes(id)){
+        const id = +e.target.value;
+        if (selected?.includes(id)) {
             setSelected([...selected.filter((e) => e !== id)]);
         } else {
             setSelected([...selected, id]);
         }
-    }
-
+    };
 
     const handleSelect = () => {
-        if(selected.length === users?.length) {
-            setSelected([])
+        if (selected.length === users?.length) {
+            setSelected([]);
         } else {
-            const arr = new Set(users?.map(e => e.id));
+            const arr = new Set(users?.map((e) => e.id));
             setSelected([...Array.from(arr)]);
         }
-    }
+    };
 
-
-
-        // HANDLE BLOCK
-        const handleBlock = async() => {
-            try{
-                const res = await axios.put('http://itransitionlasttask.herokuapp.com/api/admin/change_state', {
-                        arrId: selected, // selected users will block
-                        state: false,
+    // HANDLE BLOCK
+    const handleBlock = async () => {
+        try {
+            const res = await axios.put(
+                'http://itransitionlasttask.herokuapp.com/api/admin/change_state',
+                {
+                    arrId: selected, // selected users will block
+                    state: false,
+                },
+                {
+                    headers: {
+                        accessToken: `${accessToken}`,
                     },
-                    {
-                        headers: {
-                           "accessToken": `${accessToken}`
-                        }
-                    }
-                )
-                    console.log(res.data.statusCode)
-                if(res.data.statusCode === 200){
-                    setToggle(!toggle);
-                } else if(res.data.statusCode === 401){
-                    alert('Token is invalid');
-                    navigate('/login')
-                } else if(res.data.statusCode === 400){
-                    alert(res.data.message);
-                    navigate('/login');
-                }
-            } catch(err){
-                console.log(err)
+                },
+            );
+            console.log(res.data.statusCode);
+            if (res.data.statusCode === 200) {
+                setToggle(!toggle);
+            } else if (res.data.statusCode === 401) {
+                alert('Token is invalid');
+                navigate('/login');
+            } else if (res.data.statusCode === 400) {
+                alert(res.data.message);
+                navigate('/login');
             }
+        } catch (err) {
+            console.log(err);
         }
+    };
     //     //  HANDLE UNBLOCK
 
     //     const handleUnblock = () => {
@@ -123,19 +121,19 @@ const Users = () => {
 
     //
 
-    
-
     return (
         <div className='users'>
             <div className='actions'>
-                <input 
-                    type='text' 
-                    placeholder='search by name' 
-                    onChange={(e) => setSearch(e.target.value)} 
+                <input
+                    type='text'
+                    placeholder='search by name'
+                    onChange={(e) => setSearch(e.target.value)}
                     value={search}
                 />
                 <div className='action'>
-                    <span className='action-btn btn btn-danger' onClick={handleBlock}>Block</span>
+                    <span className='action-btn btn btn-danger' onClick={handleBlock}>
+                        Block
+                    </span>
                     <span className='action-btn btn btn-success'>Unblock</span>
                     <span className='action-btn btn btn-warning'>Delete</span>
                     <span className='action-btn btn btn-info'>Admin</span>
@@ -143,7 +141,7 @@ const Users = () => {
                 </div>
             </div>
             <div className='users-grid'>
-            <table className='table table-striped'>
+                <table className='table table-striped'>
                     <thead>
                         <tr>
                             <th>
@@ -165,39 +163,41 @@ const Users = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.filter((user) => {
-                            if(search === ''){
-                                return user;
-                            } else if(user.name.toLowerCase().includes(search.toLowerCase())){
-                                return user;
-                            }
-                        }).map((e, i) => {
-                            const {id, name, email, state, role} = e;
+                        {users
+                            .filter((user) => {
+                                if (search === '') {
+                                    return user;
+                                } else if (user.name.toLowerCase().includes(search.toLowerCase())) {
+                                    return user;
+                                }
+                            })
+                            .map((e, i) => {
+                                const { id, name, email, state, role } = e;
                                 return (
                                     <tr key={id}>
                                         <td>
-                                            <input 
+                                            <input
                                                 className='table-checkbox'
-                                                type='checkbox' 
-                                                value={id}  
+                                                type='checkbox'
+                                                value={id}
                                                 onChange={handleChange}
                                                 checked={selected.includes(id)}
-                                               
                                             />
                                         </td>
-                                        <td>{i+1}</td>
+                                        <td>{i + 1}</td>
                                         <td>{id}</td>
                                         <td>{name}</td>
                                         <td>{email}</td>
                                         <td>{role}</td>
-                                        <td className={`${state ? 'active' : 'block'}`}>{e.state ? 'Active' : 'Blocked'}</td>
+                                        <td className={`${state ? 'active' : 'block'}`}>
+                                            {e.state ? 'Active' : 'Blocked'}
+                                        </td>
                                         <td>
                                             <button className='btn btn-primary'>view</button>
                                         </td>
                                     </tr>
-                                )
-                            }
-                        )}
+                                );
+                            })}
                     </tbody>
                 </table>
             </div>

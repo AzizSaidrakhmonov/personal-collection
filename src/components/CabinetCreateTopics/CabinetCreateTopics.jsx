@@ -4,26 +4,27 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import './cabinetCreateTopics.scss';
 
+const baseURL = 'http://itransitionlasttask.herokuapp.com/api';
 
 const CabinetCreateTopics = () => {
     const [modal, setModal] = useState(false);
-    const accessToken = window.localStorage.getItem('accessToken');    
-    
-    const sendCreatedTopic = async (e) => {
-        
+    const accessToken = window.localStorage.getItem('accessToken');
 
+    const sendCreatedTopic = async (e) => {
         e.preventDefault();
 
         const { name } = e.target.elements;
+        const payload = {
+            name: name.value,
+        };
+        const config = {
+            headers: {
+                Authorization: accessToken,
+            },
+        };
 
         try {
-            const res = await axios.post('http://itransitionlasttask.herokuapp.com/api/topic/add', {
-                headers: {
-                    accessToken
-                },
-                name: name.value
-            });
-            
+            const res = await axios.post(`${baseURL}/topic/add`, payload, config);
         } catch (err) {
             console.log(err);
         }
@@ -61,7 +62,7 @@ const CabinetCreateTopics = () => {
                             />
                         </div>
                         <div className='wrapper'>
-                            <input type='submit' value='Add' className='create-topics__form-btn btn btn-primary mt-3'/>
+                            <input type='submit' value='Add' className='create-topics__form-btn btn btn-primary mt-3' />
                         </div>
                     </form>
                 </div>

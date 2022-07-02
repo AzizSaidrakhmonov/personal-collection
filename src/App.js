@@ -12,7 +12,6 @@ import CabinetCreateTags from './components/CabinetCreateTags/CabinetCreateTags'
 import CabinetCreateTopics from './components/CabinetCreateTopics/CabinetCreateTopics';
 import Tags from './components/tags/Tags';
 
-
 const App = () => {
     return (
         <div className='app'>
@@ -20,13 +19,13 @@ const App = () => {
                 <Routes>
                     <Route path='/' element={<Home />}>
                         <Route path='/' element={<TopCollections />} />
-                        <Route path='/allCollections' element={<AllCollections/>}/>
+                        <Route path='/allCollections' element={<AllCollections />} />
                         <Route path='/allUsers' element={<Users />} />
                         <Route path='/tags' element={<Tags />} />
-                        <Route path='/personalCabinet' element={<Cabinet/>}/>
-                        <Route path='/personalCabinet/createCollections' element={<CabinetCreateCollections/>}/>
-                        <Route path='/personalCabinet/createTags' element={<CabinetCreateTags/>}/>
-                        <Route path='/personalCabinet/createTopics' element={<CabinetCreateTopics/>}/>
+                        <Route path='/personalCabinet' element={<Cabinet />} />
+                        <Route path='/personalCabinet/createCollections' element={<CabinetCreateCollections />} />
+                        <Route path='/personalCabinet/createTags' element={<CabinetCreateTags />} />
+                        <Route path='/personalCabinet/createTopics' element={<CabinetCreateTopics />} />
                     </Route>
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />

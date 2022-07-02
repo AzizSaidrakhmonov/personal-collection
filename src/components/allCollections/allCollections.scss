@@ -33,7 +33,7 @@ $white-color: #ffffff;
     --clr-green-dark: hsl(125, 67%, 44%);
     --clr-green-light: hsl(125, 71%, 66%);
     --clr-black: #222;
-  
+
     --transition: all 0.3s linear;
     --spacing: 0.1rem;
     --radius: 0.75rem;
@@ -41,66 +41,65 @@ $white-color: #ffffff;
     --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     --max-width: 1170px;
     --fixed-width: 620px;
-  }
-  /*
+}
+/*
   =============== 
   Global Styles
   ===============
   */
-  
-  *,
-  ::after,
-  ::before {
+
+*,
+::after,
+::before {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  /*
+}
+
+/*
   =============== 
   Pagination
   ===============
   */
- 
-  .container {
+
+.container {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     gap: 20px;
     flex-wrap: wrap;
-  }
- 
-  .card {
+}
+
+.card {
     background: $white-color;
     // border-radius: var(--radius);
     box-shadow: $box-shadow;
     padding: 10px 20px;
     text-align: center;
-  }
+}
 
-  .card img {
+.card img {
     width: 130px;
     height: 130px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 0.75rem;
-  }
-  
-  .card h4 {
+}
+
+.card h4 {
     margin-bottom: 1.5rem;
     font-size: 0.85rem;
     color: #888;
-  }
-  
-  
-  .btn-container {
+}
+
+.btn-container {
     margin-top: 60px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-  }
+}
 
-  .page-btn {
+.page-btn {
     width: 2rem;
     height: 2rem;
     background: var(--clr-primary-7);
@@ -108,16 +107,16 @@ $white-color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
     margin: 0.5rem;
-    transition: all .3s linear;
-  }
+    transition: all 0.3s linear;
+}
 
-  .active-btn {
+.active-btn {
     background: var(--clr-primary-1);
     color: $white-color;
-  }
+}
 
-  .prev-btn,
-  .next-btn {
+.prev-btn,
+.next-btn {
     background: transparent;
     border-color: transparent;
     font-weight: bold;
@@ -126,6 +125,4 @@ $white-color: #ffffff;
     margin: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
-  }
-  
-  
+}

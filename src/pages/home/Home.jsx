@@ -7,15 +7,13 @@ import axios from 'axios';
 import { UserContext } from '../../context/UserContext';
 
 const Home = () => {
-
     const [users, setUsers] = useState([]);
     const [oneUser, setOneUser] = useState([]);
 
     const userEmail = localStorage.getItem('email');
     const accessToken = localStorage.getItem('accessToken');
-   
-    const getAllUsers = async () => {
 
+    const getAllUsers = async () => {
         try {
             const res = await axios.get('http://itransitionlasttask.herokuapp.com/api/user/get_all_users', {
                 headers: {
@@ -25,12 +23,10 @@ const Home = () => {
 
             setUsers(res.data.data);
             // console.log(res.data.data);
-
         } catch (err) {
             console.error(err);
         }
     };
-
 
     const getOneUser = async () => {
         try {
@@ -58,7 +54,7 @@ const Home = () => {
             <div className='home-container'>
                 <Navbar />
                 <div className='home-collections'>
-                    <UserContext.Provider value={{users: users, oneUser: oneUser}}>
+                    <UserContext.Provider value={{ users: users, oneUser: oneUser }}>
                         <Outlet />
                     </UserContext.Provider>
                 </div>

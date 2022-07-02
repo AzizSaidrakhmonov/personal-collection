@@ -1,35 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, {useContext} from 'react';
 import './cabinet.scss';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { UserContext } from '../../context/UserContext';
 
 const Cabinet = () => {
-    const [oneUser, setOneUser] = useState([]);
 
-    const accessToken = localStorage.getItem('accessToken');
-    const userEmail = localStorage.getItem('email');
+    const {oneUser} = useContext(UserContext);
 
-    const getOneUser = async () => {
-        try {
-            const res2 = await axios.get(`http://itransitionlasttask.herokuapp.com/api/user/get/${userEmail}`, {
-                headers: {
-                    accessToken: `${accessToken}`,
-                },
-            });
-
-            setOneUser(res2.data.data);
-            // console.log(res2.data.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    console.log(oneUser)
-
-    useEffect(() => {
-        getOneUser();
-    }, []);
+    // console.log(oneUser);
 
     return (
         <div className='cabinet'>
@@ -60,6 +39,12 @@ const Cabinet = () => {
                 <div className='cabinet-btn'>
                     <Link to='/personalCabinet/createCollections'>
                         <button className='btn btn-success'>My Collections</button>
+                    </Link>
+                    <Link to='/personalCabinet/createTags'>
+                        <button className='btn btn-success mx-5'>Tags</button>
+                    </Link>
+                    <Link to='/personalCabinet/createTopics'>
+                        <button className='btn btn-success'>Topics</button>
                     </Link>
                 </div>
             </div>

@@ -8,8 +8,8 @@ import { UserContext } from '../../context/UserContext';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const Users = () => {
-    const users = useContext(UserContext);
-
+    const {users} = useContext(UserContext);
+    
     const [selectText, setSelectText] = useState('');
     const [selected, setSelected] = useState([]);
     const [search, setSearch] = useState('');
@@ -26,7 +26,7 @@ const Users = () => {
     const handleChange = (e) => {
         const id = +(e.target.value);
         if(selected?.includes(id)){
-            setSelected([...selected.filter((e) => e != id)]);
+            setSelected([...selected.filter((e) => e !== id)]);
         } else {
             setSelected([...selected, id]);
         }
@@ -166,13 +166,13 @@ const Users = () => {
                     </thead>
                     <tbody>
                         {users.filter((user) => {
-                            if(search == ''){
+                            if(search === ''){
                                 return user;
                             } else if(user.name.toLowerCase().includes(search.toLowerCase())){
                                 return user;
                             }
                         }).map((e, i) => {
-                            const {id, name, email, password, state, role} = e;
+                            const {id, name, email, state, role} = e;
                                 return (
                                     <tr key={id}>
                                         <td>

@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './sidebar.scss';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import CollectionsIcon from '@mui/icons-material/Collections';
+import TagIcon from '@mui/icons-material/Tag';
 import GroupIcon from '@mui/icons-material/Group';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LanguageIcon from '@mui/icons-material/Language';
 import PaletteIcon from '@mui/icons-material/Palette';
 import { Link } from 'react-router-dom';
-import { ToggleSidebar } from '../../context/ToggleSidebar';
 import { useStateContext } from '../../context/ToggleSidebar';
 
 const Sidebar = () => {
-    const {activeMenu, setActiveMenu} = useStateContext();
-
+    const {activeMenu} = useStateContext();
+    
     return (
       <>
         { activeMenu && (
@@ -39,6 +39,12 @@ const Sidebar = () => {
                                     <li className='sidebar-dashboard__item'>
                                         <GroupIcon className='sidebar-dashboard__icon' />
                                         Users
+                                    </li>
+                                </Link>
+                                <Link to='/tags' style={{ textDecoration: 'none' }}>
+                                    <li className='sidebar-dashboard__item'>
+                                        <TagIcon className='sidebar-dashboard__icon' />
+                                        Tags
                                     </li>
                                 </Link>
 

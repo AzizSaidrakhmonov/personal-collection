@@ -31,13 +31,19 @@ const CabinetCreateCollections = () => {
         // const { topic, name, description } = e.target.elements;
         // const {file} = e.target.files[0]
 
+        console.log({
+            topic,
+            file,
+            name,
+            description,
+        });
         const formData = new FormData();
         formData.append('topic', topic);
         formData.append('file', file);
         formData.append('name', name);
         formData.append('description', description);
 
-        console.log(formData)
+        console.log(formData);
 
         try {
             const res = await axios.post(
@@ -56,10 +62,6 @@ const CabinetCreateCollections = () => {
         }
     };
 
-    useEffect(() => {
-        sendCreatedCollection();
-    }, []);
-
     return (
         <div className='cabinet2'>
             <div className='cabinet2-top'>
@@ -76,24 +78,21 @@ const CabinetCreateCollections = () => {
                             <div className='wrapper wrapper-top'>
                                 <select
                                     name='topics'
-                                    value={(e) => setTopic(e.target.topic.value)}
-                                    // onChange={(e) => setTopic(e.target.topic.value)}
-                                    className='cabinet2-main__form-input'   
+                                    onChange={(e) => {
+                                        setTopic(e.target.value);
+                                    }}
+                                    className='cabinet2-main__form-input'
                                     style={{ cursor: 'pointer' }}
                                 >
-                                    {topics.map((topic) => {
-                                        const { name } = topic;
-                                        return (
-                                            <option
-                                                value={name}
-                                                className='cabinet2-main__form-input'
-                                                style={{ overflow: 'hidden' }}
-                                                onChange={(e) => setTopic(e.target.value)}  
-                                            >
-                                                {name}
-                                            </option>
-                                        );
-                                    })}
+                                    {topics.map(({ name }) => (
+                                        <option
+                                            value={name}
+                                            className='cabinet2-main__form-input'
+                                            style={{ overflow: 'hidden' }}
+                                        >
+                                            {name}
+                                        </option>
+                                    ))}
                                 </select>
                                 <CloseIcon
                                     onClick={() => {

@@ -7,7 +7,7 @@ import { UserContext } from '../../context/UserContext';
 const Cabinet = () => {
     const { oneUser } = useContext(UserContext);
 
-    // console.log(oneUser);
+    console.log(oneUser.role);
 
     return (
         <div className='cabinet'>
@@ -39,11 +39,11 @@ const Cabinet = () => {
                     <Link to='/personalCabinet/createCollections'>
                         <button className='btn btn-success'>My Collections</button>
                     </Link>
-                    <Link to='/personalCabinet/createTags'>
-                        <button className='btn btn-success mx-5'>Tags</button>
+                    <Link to='/personalCabinet/createTags' className={`${oneUser.role === 'ROLE_ADMIN' ? 'admin' : 'user'}`}>
+                        <button className='btn btn-success mx-5 cabinet-btn__create-tags'>Tags</button>
                     </Link>
-                    <Link to='/personalCabinet/createTopics'>
-                        <button className='btn btn-success'>Topics</button>
+                    <Link to='/personalCabinet/createTopics' className={`${oneUser.role === 'ROLE_ADMIN' ? 'admin' : 'user'}`}>
+                        <button className='btn btn-success cabinet-btn__create-topics'>Topics</button>
                     </Link>
                 </div>
             </div>

@@ -11,9 +11,20 @@ const AllCollections = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(10);
 
+    const accessToken = localStorage.getItem('accessToken')
+
     const fetchPost = async () => {
-        const res = await axios.get('https://api.github.com/users/john-smilga/followers?per_page=100');
-        setPosts(res.data);
+        try{
+            const res = await axios.get('http://itransitionlasttask.herokuapp.com/api/topic/get_all', {
+                headers: {
+                    Authorization: accessToken
+                }
+            });
+            setPosts(res.data.data);
+            console.log(res.data.data)
+        }catch(err){
+            console.log(err)
+        }
     };
 
     useEffect(() => {

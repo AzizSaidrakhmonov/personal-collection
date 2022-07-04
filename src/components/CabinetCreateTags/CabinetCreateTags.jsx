@@ -7,7 +7,7 @@ import './cabinetCreateTags.scss';
 const CabinetCreateTags = () => {
     const [modal, setModal] = useState(false);
 
-    // const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');
 
     const sendCreatedTag = async (e) => {
         e.preventDefault();
@@ -15,9 +15,17 @@ const CabinetCreateTags = () => {
         try {
             const { name } = e.target.elements;
 
-            const res = await axios.post('http://itransitionlasttask.herokuapp.com/api/tag/add', {
-                name: name.value,
-            });
+            const res = await axios.post(
+                'http://itransitionlasttask.herokuapp.com/api/tag/add',
+                {
+                    name: name.value,
+                },
+                {
+                    headers: {
+                        Authorization: accessToken,
+                    },
+                },
+            );
 
             console.log(res);
         } catch (err) {
@@ -57,9 +65,16 @@ const CabinetCreateTags = () => {
                             />
                         </div>
                         <div className='wrapper'>
-                            <button type='submit' className='create-tags__form-btn btn btn-primary mt-3'>
-                                Add
-                            </button>
+                            <input 
+                                type='submit' 
+                                value='Add' 
+                                className='create-tags__form-btn btn btn-primary mt-3'
+                                onClick={() => 
+                                    setTimeout(() => {
+                                        setModal(false)
+                                    }, 500)
+                                }
+                            />  
                         </div>
                     </form>
                 </div>

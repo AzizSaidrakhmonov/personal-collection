@@ -1,4 +1,4 @@
-$box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+$box-shadow: 0 2px 8px #00000042;
 
 .cabinet {
     display: flex;
@@ -63,4 +63,12 @@ $box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
             }
         }
     }
+}
+
+.admin {
+    display: inline-block;
+}
+
+.user {
+    display: none;
 }

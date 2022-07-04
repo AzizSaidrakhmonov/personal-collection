@@ -9,6 +9,7 @@ import { UserContext } from '../../context/UserContext';
 const Home = () => {
     const [users, setUsers] = useState([]);
     const [oneUser, setOneUser] = useState([]);
+    const [topics, setTopics] = useState([]);
 
     const userEmail = localStorage.getItem('email');
     const accessToken = localStorage.getItem('accessToken');
@@ -43,9 +44,25 @@ const Home = () => {
         }
     };
 
+    const getTopics = async () => {
+        try {
+            const res = await axios.get('http://itransitionlasttask.herokuapp.com/api/topic/get_all', {
+                headers: {
+                    Authorization: accessToken,
+                },
+            });
+
+            setTopics(res.data.data);
+            // console.log(res.data.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     useEffect(() => {
         getAllUsers();
         getOneUser();
+        getTopics();
     }, []);
 
     return (
@@ -54,7 +71,7 @@ const Home = () => {
             <div className='home-container'>
                 <Navbar />
                 <div className='home-collections'>
-                    <UserContext.Provider value={{ users: users, oneUser: oneUser }}>
+                    <UserContext.Provider value={{ users: users, oneUser: oneUser, topics: topics }}>
                         <Outlet />
                     </UserContext.Provider>
                 </div>

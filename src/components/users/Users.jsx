@@ -8,6 +8,11 @@ import { UserContext } from '../../context/UserContext';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const Users = () => {
+
+    const { oneUser } = useContext(UserContext);
+
+
+
     const { users } = useContext(UserContext);
 
     const [selectText, setSelectText] = useState('');
@@ -130,7 +135,7 @@ const Users = () => {
                     onChange={(e) => setSearch(e.target.value)}
                     value={search}
                 />
-                <div className='action'>
+                <div className={`action ${`${oneUser.role === 'ROLE_ADMIN' ? 'admin' : 'user'}`}`}>
                     <span className='action-btn btn btn-danger' onClick={handleBlock}>
                         Block
                     </span>
@@ -148,7 +153,7 @@ const Users = () => {
                                 <button
                                     type='button'
                                     onClick={handleSelect}
-                                    className='users-grid__check btn btn-success'
+                                    className={`users-grid__check btn btn-success ${`${oneUser.role === 'ROLE_ADMIN' ? 'admin' : 'user'}`}`}
                                 >
                                     {selectText}
                                 </button>
@@ -177,7 +182,7 @@ const Users = () => {
                                     <tr key={id}>
                                         <td>
                                             <input
-                                                className='table-checkbox'
+                                                className={`table-checkbox ${`${oneUser.role === 'ROLE_ADMIN' ? 'admin' : 'user'}`}`}
                                                 type='checkbox'
                                                 value={id}
                                                 onChange={handleChange}

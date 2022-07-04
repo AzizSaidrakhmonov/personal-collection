@@ -54,7 +54,10 @@ const Sidebar = () => {
                                     Personal Cabinet
                                 </li>
                             </Link>
-                            <Link to='/login' style={{ textDecoration: 'none' }}>
+                            <Link to='/login' style={{ textDecoration: 'none' }} onClick={() => {
+                                localStorage.removeItem('accessToken')
+                                localStorage.removeItem('email')
+                            }}>
                                 <li className='sidebar-dashboard__item'>
                                     <LogoutIcon className='sidebar-dashboard__icon' />
                                     Logout

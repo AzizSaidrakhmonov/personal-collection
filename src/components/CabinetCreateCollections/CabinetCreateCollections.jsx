@@ -7,26 +7,52 @@ import { UserContext } from '../../context/UserContext';
 import axios from 'axios';
 
 const CabinetCreateCollections = () => {
+    const accessToken = localStorage.getItem('accessToken');
+
     const { oneUser } = useContext(UserContext);
-    // console.log(oneUser.id)
+    const { topics } = useContext(UserContext);
+    const userId = oneUser.id;
+
+    // console.log(userId)
+    // console.log(topics);
 
     const [file, setFile] = useState('');
+    const [name, setName] = useState('');
+    const [topic, setTopic] = useState('');
+    const [description, setDescription] = useState('');
+
     const [modal, setModal] = useState(false);
+
+    // console.log(file);
 
     const sendCreatedCollection = async (e) => {
         e.preventDefault();
 
-        const { topic, file, name, description } = e.target.elements;
+        // const { topic, name, description } = e.target.elements;
+        // const {file} = e.target.files[0]
 
-        const res = await axios.post(`http://itransitionlasttask.herokuapp.com/api/collection/add/${oneUser.id}`, {
-            topic: topic.value,
-            file: file.value,
-            name: name.value,
-            description: description.value,
-        });
-        console.log(res);
+        const formData = new FormData();
+        formData.append('topic', topic);
+        formData.append('file', file);
+        formData.append('name', name);
+        formData.append('description', description);
 
-        if (res.data.statusCode === 200) {
+        console.log(formData)
+
+        try {
+            const res = await axios.post(
+                `http://itransitionlasttask.herokuapp.com/api/collection/add/${userId}`,
+                formData,
+                {
+                    headers: {
+                        Authorization: accessToken,
+                        'content-type': 'multipart/form-data',
+                    },
+                },
+            );
+            // console.log(res.data);
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -48,13 +74,27 @@ const CabinetCreateCollections = () => {
                     <div className='cabinet2-main__form '>
                         <form onSubmit={sendCreatedCollection}>
                             <div className='wrapper wrapper-top'>
-                                <input
-                                    type='text'
-                                    name='topic'
-                                    placeholder='Topic'
-                                    required
-                                    className='cabinet2-main__form-input'
-                                />
+                                <select
+                                    name='topics'
+                                    value={(e) => setTopic(e.target.topic.value)}
+                                    // onChange={(e) => setTopic(e.target.topic.value)}
+                                    className='cabinet2-main__form-input'   
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    {topics.map((topic) => {
+                                        const { name } = topic;
+                                        return (
+                                            <option
+                                                value={name}
+                                                className='cabinet2-main__form-input'
+                                                style={{ overflow: 'hidden' }}
+                                                onChange={(e) => setTopic(e.target.value)}  
+                                            >
+                                                {name}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
                                 <CloseIcon
                                     onClick={() => {
                                         setModal(false);
@@ -93,6 +133,7 @@ const CabinetCreateCollections = () => {
                                     placeholder='Name'
                                     required
                                     className='cabinet2-main__form-input'
+                                    onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
                             <div className='wrapper'>
@@ -102,6 +143,7 @@ const CabinetCreateCollections = () => {
                                     placeholder='Description'
                                     required
                                     className='cabinet2-main__form-input'
+                                    onChange={(e) => setDescription(e.target.value)}
                                 />
                                 <button type='submit' className='cabinet2-main__form-btn btn btn-primary'>
                                     Add

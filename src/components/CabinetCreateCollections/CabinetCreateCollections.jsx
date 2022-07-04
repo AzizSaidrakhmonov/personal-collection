@@ -5,6 +5,7 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import CloseIcon from '@mui/icons-material/Close';
 import { UserContext } from '../../context/UserContext';
 import axios from 'axios';
+import FormData from 'form-data';
 
 const CabinetCreateCollections = () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -25,19 +26,30 @@ const CabinetCreateCollections = () => {
 
     // console.log(file);
 
+    useEffect(() => {
+        if (topics.length > 0) {
+            setTopic(topics[0].name);
+        }
+    }, [topics]);
+
     const sendCreatedCollection = async (e) => {
         e.preventDefault();
 
         // const { topic, name, description } = e.target.elements;
         // const {file} = e.target.files[0]
 
+        console.log(file);
+        console.log({
+            topic,
+            file,
+            name,
+            description,
+        });
         const formData = new FormData();
         formData.append('topic', topic);
-        formData.append('file', file);
+        formData.append('file', file, file.name);
         formData.append('name', name);
         formData.append('description', description);
-
-        console.log(formData)
 
         try {
             const res = await axios.post(
@@ -46,7 +58,7 @@ const CabinetCreateCollections = () => {
                 {
                     headers: {
                         Authorization: accessToken,
-                        'content-type': 'multipart/form-data',
+                        'Content-Type': 'multipart/form-data',
                     },
                 },
             );
@@ -55,10 +67,6 @@ const CabinetCreateCollections = () => {
             console.log(err);
         }
     };
-
-    useEffect(() => {
-        sendCreatedCollection();
-    }, []);
 
     return (
         <div className='cabinet2'>
@@ -76,24 +84,21 @@ const CabinetCreateCollections = () => {
                             <div className='wrapper wrapper-top'>
                                 <select
                                     name='topics'
-                                    value={(e) => setTopic(e.target.topic.value)}
-                                    // onChange={(e) => setTopic(e.target.topic.value)}
-                                    className='cabinet2-main__form-input'   
+                                    onChange={(e) => {
+                                        setTopic(e.target.value);
+                                    }}
+                                    className='cabinet2-main__form-input'
                                     style={{ cursor: 'pointer' }}
                                 >
-                                    {topics.map((topic) => {
-                                        const { name } = topic;
-                                        return (
-                                            <option
-                                                value={name}
-                                                className='cabinet2-main__form-input'
-                                                style={{ overflow: 'hidden' }}
-                                                onChange={(e) => setTopic(e.target.value)}  
-                                            >
-                                                {name}
-                                            </option>
-                                        );
-                                    })}
+                                    {topics.map(({ name }) => (
+                                        <option
+                                            value={name}
+                                            className='cabinet2-main__form-input'
+                                            style={{ overflow: 'hidden' }}
+                                        >
+                                            {name}
+                                        </option>
+                                    ))}
                                 </select>
                                 <CloseIcon
                                     onClick={() => {
@@ -122,6 +127,7 @@ const CabinetCreateCollections = () => {
                                     name='file'
                                     id='file'
                                     className='cabinet2-main__form-input'
+                                    accept='image/*'
                                     required
                                     onChange={(e) => setFile(e.target.files[0])}
                                 />

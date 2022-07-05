@@ -49,7 +49,7 @@ const Users = () => {
     const handleBlock = async () => {
         try {
             const res = await axios.put(
-                'http://itransitionlasttask.herokuapp.com/api/admin/change_state',
+                'http://10.10.2.195:8080/api/admin/change_state',
                 {
                     arrId: selected, // selected users will block
                     state: false,

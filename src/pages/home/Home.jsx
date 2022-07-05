@@ -10,13 +10,14 @@ const Home = () => {
     const [users, setUsers] = useState([]);
     const [oneUser, setOneUser] = useState([]);
     const [topics, setTopics] = useState([]);
+    const [tags, setTags] = useState([]);
 
     const userEmail = localStorage.getItem('email');
     const accessToken = localStorage.getItem('accessToken');
 
     const getAllUsers = async () => {
         try {
-            const res = await axios.get('http://itransitionlasttask.herokuapp.com/api/user/get_all_users', {
+            const res = await axios.get('http://10.10.2.195:8080/api/user/get_all_users', {
                 headers: {
                     accessToken: `${accessToken}`,
                 },
@@ -31,7 +32,7 @@ const Home = () => {
 
     const getOneUser = async () => {
         try {
-            const res2 = await axios.get(`http://itransitionlasttask.herokuapp.com/api/user/get/${userEmail}`, {
+            const res2 = await axios.get(`http://10.10.2.195:8080/api/user/get/${userEmail}`, {
                 headers: {
                     accessToken: `${accessToken}`,
                 },
@@ -46,7 +47,7 @@ const Home = () => {
 
     const getTopics = async () => {
         try {
-            const res = await axios.get('http://itransitionlasttask.herokuapp.com/api/topic/get_all', {
+            const res = await axios.get('http://10.10.2.195:8080/api/topic/get_all', {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -59,10 +60,26 @@ const Home = () => {
         }
     };
 
+    const getTags = async () => {
+        try {
+            const res = await axios.get('http://10.10.2.195:8080/api/tag/get_all', {
+                headers: {
+                    Authorization: accessToken,
+                },
+            });
+
+            setTopics(res.data.data);
+            console.log(res.data.data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     useEffect(() => {
         getAllUsers();
         getOneUser();
         getTopics();
+        getTags()
     }, []);
 
     return (
@@ -71,7 +88,7 @@ const Home = () => {
             <div className='home-container'>
                 <Navbar />
                 <div className='home-collections'>
-                    <UserContext.Provider value={{ users: users, oneUser: oneUser, topics: topics }}>
+                    <UserContext.Provider value={{ users: users, oneUser: oneUser, topics: topics, tags: tags }}>
                         <Outlet />
                     </UserContext.Provider>
                 </div>

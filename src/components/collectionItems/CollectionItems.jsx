@@ -2,35 +2,22 @@ import React, { useState, useEffect } from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
-import './cabinetCreateTopics.scss';
+import './collectionItems.scss';
 
 
-const CabinetCreateTopics = () => {
+const CollectionItems = () => {
     const [modal, setModal] = useState(false);
-    const accessToken = window.localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');
 
-    const sendCreatedTopic = async (e) => {
+    const sendCreatedCollectionItem = async (e) => {
         e.preventDefault();
 
         const { name } = e.target.elements;
-     
-        try {
-            const res = await axios.post('http://10.10.2.195:8080/api/topic/add', {
-                name: name.value
-            }, 
-            {
-                headers: {
-                    Authorization: accessToken
-                }
-            });
-            console.log(res)
-        } catch (err) {
-            console.log(err);
-        }
+    
     };
 
     useEffect(() => {
-        sendCreatedTopic();
+        sendCreatedCollectionItem();
     }, []);
 
     return (
@@ -38,13 +25,13 @@ const CabinetCreateTopics = () => {
             <div className='create-topics__top'>
                 <div className='create-topics__top-btn'>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
-                        Create New Topic
+                        Create New Item
                     </button>
                 </div>
             </div>
             {modal && (
                 <div className='create-topics__form'>
-                    <form onSubmit={sendCreatedTopic}>
+                    <form onSubmit={sendCreatedCollectionItem}>
                         <CloseIcon
                             onClick={() => {
                                 setModal(false);
@@ -79,4 +66,4 @@ const CabinetCreateTopics = () => {
     );
 };
 
-export default CabinetCreateTopics;
+export default CollectionItems;

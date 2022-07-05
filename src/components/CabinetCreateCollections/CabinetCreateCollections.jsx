@@ -14,17 +14,13 @@ const CabinetCreateCollections = () => {
     const { topics } = useContext(UserContext);
     const userId = oneUser.id;
 
-    // console.log(userId)
-    // console.log(topics);
-
     const [file, setFile] = useState('');
     const [name, setName] = useState('');
     const [topic, setTopic] = useState('');
     const [description, setDescription] = useState('');
 
-    const [modal, setModal] = useState(false);
 
-    // console.log(file);
+    const [modal, setModal] = useState(false);
 
     useEffect(() => {
         if (topics.length > 0) {
@@ -32,41 +28,44 @@ const CabinetCreateCollections = () => {
         }
     }, [topics]);
 
-    const sendCreatedCollection = async (e) => {
+
+    const sendCollection = async (e) => {
         e.preventDefault();
 
-        // const { topic, name, description } = e.target.elements;
-        // const {file} = e.target.files[0]
-
-        console.log(file);
-        console.log({
-            topic,
-            file,
-            name,
-            description,
-        });
-        const formData = new FormData();
-        formData.append('topic', topic);
-        formData.append('file', file, file.name);
-        formData.append('name', name);
-        formData.append('description', description);
+        const imageData = new FormData();
+        imageData.append('file', file, file.name)
 
         try {
-            const res = await axios.post(
-                `http://itransitionlasttask.herokuapp.com/api/collection/add/${userId}`,
-                formData,
+
+            const res1 = await axios.post(`http://10.10.2.195:8080/api/image/profile/pic`,
+                imageData,
                 {
                     headers: {
                         Authorization: accessToken,
                         'Content-Type': 'multipart/form-data',
                     },
-                },
-            );
-            // console.log(res.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
+                })
+            
+            const res2 = await axios.post(`http://10.10.2.195:8080/api/collection/add/${userId}`, {
+                topic: topic,
+                imageUrl: res1.data.data,
+                name: name,
+                description: description
+            },
+            {
+                headers: {
+                    Authorization: accessToken
+                }
+            })
+
+            console.log(res1.data.data)
+            console.log(res2.data)
+            
+ 
+    } catch(err) {
+        console.log(err)
+    }
+}
 
     return (
         <div className='cabinet2'>
@@ -80,25 +79,29 @@ const CabinetCreateCollections = () => {
             {modal && (
                 <div className='cabinet2-main'>
                     <div className='cabinet2-main__form '>
-                        <form onSubmit={sendCreatedCollection}>
+                        <form onSubmit={sendCollection}>
                             <div className='wrapper wrapper-top'>
                                 <select
                                     name='topics'
+                                    id='topics'
                                     onChange={(e) => {
                                         setTopic(e.target.value);
                                     }}
                                     className='cabinet2-main__form-input'
                                     style={{ cursor: 'pointer' }}
                                 >
-                                    {topics.map(({ name }) => (
+                                    {topics.map((topic) => {
+                                        const {id, name} = topic;
+                                        return (
                                         <option
+                                            key={id}
                                             value={name}
                                             className='cabinet2-main__form-input'
                                             style={{ overflow: 'hidden' }}
                                         >
                                             {name}
                                         </option>
-                                    ))}
+                                    )})}
                                 </select>
                                 <CloseIcon
                                     onClick={() => {
@@ -136,6 +139,7 @@ const CabinetCreateCollections = () => {
                                 <input
                                     type='text'
                                     name='name'
+                                    id='name'
                                     placeholder='Name'
                                     required
                                     className='cabinet2-main__form-input'
@@ -146,12 +150,19 @@ const CabinetCreateCollections = () => {
                                 <input
                                     type='text'
                                     name='description'
+                                    id='description'
                                     placeholder='Description'
                                     required
                                     className='cabinet2-main__form-input'
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
-                                <button type='submit' className='cabinet2-main__form-btn btn btn-primary'>
+                                <button 
+                                    type='submit' 
+                                    className='cabinet2-main__form-btn btn btn-primary'
+                                    onClick={() => setTimeout(() => {
+                                        setModal(false)
+                                    }, [500])}
+                                >
                                     Add
                                 </button>
                             </div>

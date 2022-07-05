@@ -15,7 +15,7 @@ const AllCollections = () => {
 
     const fetchPost = async () => {
         try{
-            const res = await axios.get('http://itransitionlasttask.herokuapp.com/api/topic/get_all', {
+            const res = await axios.get('http://10.10.2.195:8080/api/collection/get_all', {
                 headers: {
                     Authorization: accessToken
                 }

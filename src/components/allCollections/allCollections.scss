@@ -1,52 +1,5 @@
-$box-shadow: 0 2px 8px #00000042;
+$box-shadow: 0 4px 14px #00000042;
 $white-color: #ffffff;
-
-:root {
-    /* dark shades of primary color*/
-    --clr-primary-1: hsl(205, 86%, 17%);
-    --clr-primary-2: hsl(205, 77%, 27%);
-    --clr-primary-3: hsl(205, 72%, 37%);
-    --clr-primary-4: hsl(205, 63%, 48%);
-    /* primary/main color */
-    --clr-primary-5: hsl(205, 78%, 60%);
-    /* lighter shades of primary color */
-    --clr-primary-6: hsl(205, 89%, 70%);
-    --clr-primary-7: hsl(205, 90%, 76%);
-    --clr-primary-8: hsl(205, 86%, 81%);
-    --clr-primary-9: hsl(205, 90%, 88%);
-    --clr-primary-10: hsl(205, 100%, 96%);
-    /* darkest grey - used for headings */
-    --clr-grey-1: hsl(209, 61%, 16%);
-    --clr-grey-2: hsl(211, 39%, 23%);
-    --clr-grey-3: hsl(209, 34%, 30%);
-    --clr-grey-4: hsl(209, 28%, 39%);
-    /* grey used for paragraphs */
-    --clr-grey-5: hsl(210, 22%, 49%);
-    --clr-grey-6: hsl(209, 23%, 60%);
-    --clr-grey-7: hsl(211, 27%, 70%);
-    --clr-grey-8: hsl(210, 31%, 80%);
-    --clr-grey-9: hsl(212, 33%, 89%);
-    --clr-grey-10: hsl(210, 36%, 96%);
-    --clr-white: #fff;
-    --clr-red-dark: hsl(360, 67%, 44%);
-    --clr-red-light: hsl(360, 71%, 66%);
-    --clr-green-dark: hsl(125, 67%, 44%);
-    --clr-green-light: hsl(125, 71%, 66%);
-    --clr-black: #222;
-
-    --transition: all 0.3s linear;
-    --spacing: 0.1rem;
-    --radius: 0.75rem;
-    --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    --max-width: 1170px;
-    --fixed-width: 620px;
-}
-/*
-  =============== 
-  Global Styles
-  ===============
-  */
 
 *,
 ::after,
@@ -55,12 +8,6 @@ $white-color: #ffffff;
     padding: 0;
     box-sizing: border-box;
 }
-
-/*
-  =============== 
-  Pagination
-  ===============
-  */
 
 .container {
     display: flex;
@@ -73,16 +20,20 @@ $white-color: #ffffff;
 
 .card {
     background: $white-color;
-    // border-radius: var(--radius);
-    box-shadow: $box-shadow;
     padding: 10px 20px;
     text-align: center;
+    border: none;
+    box-shadow: $box-shadow;
+
+    &:hover {
+        transform: scale(1.03);
+        transition: all .3s linear;
+    }
 }
 
 .card img {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
+    width: 200px;
+    height: 150px;
     object-fit: cover;
     margin-bottom: 0.75rem;
 }
@@ -100,33 +51,6 @@ $white-color: #ffffff;
     flex-wrap: wrap;
 }
 
-.page-btn {
-    width: 2rem;
-    height: 2rem;
-    background: var(--clr-primary-7);
-    border-color: transparent;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0.5rem;
-    transition: all 0.3s linear;
-}
-
-.active-btn {
-    background: var(--clr-primary-1);
-    color: $white-color;
-}
-
-.prev-btn,
-.next-btn {
-    background: transparent;
-    border-color: transparent;
-    font-weight: bold;
-    text-transform: capitalize;
-    letter-spacing: var(--spacing);
-    margin: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-}
 
 .topics-container {
     display: flex;
@@ -140,7 +64,7 @@ $white-color: #ffffff;
     font-weight: 600;
     box-shadow: $box-shadow;
     cursor: pointer;
-    
+
 
     &:focus {
         outline: none;

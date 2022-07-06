@@ -12,7 +12,7 @@ const Register = () => {
         e.preventDefault();
         const { name, email, password } = e.target.elements;
 
-        const res = await axios.post('http://10.10.2.195:8080/api/auth/register', {
+        const res = await axios.post('http://10.10.1.67:8080/api/auth/register', {
             name: name.value,
             email: email.value,
             password: password.value,

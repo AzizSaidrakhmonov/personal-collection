@@ -37,7 +37,7 @@ const CabinetCreateCollections = () => {
 
         try {
 
-            const res1 = await axios.post(`http://10.10.2.195:8080/api/image/profile/pic`,
+            const res1 = await axios.post(`http://10.10.1.67:8080/api/image/profile/pic`,
                 imageData,
                 {
                     headers: {
@@ -46,7 +46,7 @@ const CabinetCreateCollections = () => {
                     },
                 })
             
-            const res2 = await axios.post(`http://10.10.2.195:8080/api/collection/add/${userId}`, {
+            const res2 = await axios.post(`http://10.10.1.67:8080/api/collection/add/${userId}`, {
                 topic: topic,
                 imageUrl: res1.data.data,
                 name: name,
@@ -147,7 +147,7 @@ const CabinetCreateCollections = () => {
                                 />
                             </div>
                             <div className='wrapper'>
-                                <input
+                                <textarea
                                     type='text'
                                     name='description'
                                     id='description'
@@ -155,7 +155,8 @@ const CabinetCreateCollections = () => {
                                     required
                                     className='cabinet2-main__form-input'
                                     onChange={(e) => setDescription(e.target.value)}
-                                />
+                                    style={{height: '30px'}}
+                                ></textarea>
                                 <button 
                                     type='submit' 
                                     className='cabinet2-main__form-btn btn btn-primary'

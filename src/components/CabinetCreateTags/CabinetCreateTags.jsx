@@ -4,10 +4,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import './cabinetCreateTags.scss';
 import { UserContext } from '../../context/UserContext';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const CabinetCreateTags = () => {
-    const tags = useContext(UserContext);
-    console.log(tags);
+    const { tags } = useContext(UserContext);
+    // console.log(tags);
 
     const [modal, setModal] = useState(false);
 
@@ -20,7 +22,7 @@ const CabinetCreateTags = () => {
             const { name } = e.target.elements;
 
             const res = await axios.post(
-                'http://10.10.2.195:8080/api/tag/add',
+                'http://10.10.1.67:8080/api/tag/add',
                 {
                     name: name.value,
                 },
@@ -40,6 +42,10 @@ const CabinetCreateTags = () => {
     useEffect(() => {
         sendCreatedTag();
     }, []);
+
+    useEffect(() => {
+        console.log(tags)
+    }, [tags])
 
     return (
         <div className='create-tags'>
@@ -93,7 +99,11 @@ const CabinetCreateTags = () => {
                     return (
                         <div className='create-tags__item'>
                             <h4>{id}</h4>
-                            <p>{name}</p>
+                            <h4>{name}</h4>
+                            <div className='create-tags__actions'>
+                                <EditIcon />
+                                <DeleteIcon/>
+                            </div>
                         </div>
                     );
                 })}

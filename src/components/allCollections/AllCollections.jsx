@@ -1,78 +1,71 @@
+import React, { useContext } from 'react';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import Posts from './Posts';
-import Pagination from './Pagination';
 import './allCollections.scss';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { UserContext } from '../../context/UserContext';
+import { useNavigate } from 'react-router';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const AllCollections = () => {
-    const [posts, setPosts] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(10);
+    const navigate = useNavigate();
+    const accessToken = localStorage.getItem('accessToken');
 
-    const accessToken = localStorage.getItem('accessToken')
+    const { allCollections, topics } = useContext(UserContext);
 
-    const fetchPost = async () => {
-        try{
-            const res = await axios.get('http://10.10.2.195:8080/api/collection/get_all', {
-                headers: {
-                    Authorization: accessToken
-                }
-            });
-            setPosts(res.data.data);
-            console.log(res.data.data)
-        }catch(err){
-            console.log(err)
-        }
-    };
+    console.log(allCollections);
 
-    useEffect(() => {
-        fetchPost();
-    }, []);
-
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPost = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-    const nextPage = () => {
-        setCurrentPage((oldPage) => {
-            let nextPage = oldPage + 1;
-            if (nextPage > postsPerPage) {
-                nextPage = 1;
-            }
-            return nextPage;
+    const handleClickPost = async (e, id) => {
+        e.preventDefault();
+        
+        console.log('key index:', id);
+        
+        const res = await axios.get(`http://10.10.1.67:8080/api/item/get_all/${id}`, {
+            headers: {
+                Authorization: accessToken,
+            },
         });
-    };
+        
+        console.log(res.data.data);
+        localStorage.setItem('id', id)
 
-    const prevPage = () => {
-        setCurrentPage((oldPage) => {
-            let prevPage = oldPage - 1;
-            if (prevPage < 1) {
-                prevPage = postsPerPage;
-            }
-            return prevPage;
-        });
+        navigate('/allCollections/items');
     };
 
     return (
         <main>
             <section className='followers'>
                 <div>
-                    <Posts posts={currentPost} />
-                    <div className='btn-container'>
-                        <button onClick={prevPage} className='prev-btn'>
-                            <ArrowBackIcon />
-                        </button>
-                        <Pagination
-                            postsPerPage={postsPerPage}
-                            totalPosts={posts.length}
-                            paginate={currentPage}
-                            setCurrentPage={setCurrentPage}
-                        />
-                        <button onClick={nextPage} className='next-btn'>
-                            <ArrowForwardIcon />{' '}
-                        </button>
+                    <div className='topics-container'>
+                        <label htmlFor='topics' className='topics-container__label'>
+                            Choose a topic:
+                        </label>
+                        <select name='topics' id='topics' className='topics-container__select'>
+                            {topics.map((topic) => {
+                                const { name } = topic;
+                                return (
+                                    <option value={name} style={{ overflow: 'hidden' }}>
+                                        {name}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                    <div className='container'>
+                        {allCollections.map((collection) => {
+                            const { id, topic, name, description, imageUrl } = collection;
+                            return (
+                                <article
+                                    className='card mt-3'
+                                    key={id}
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={(e) => handleClickPost(e, id)}
+                                >
+                                    <h5 style={{ textDecoration: 'none' }}>{topic}</h5>
+                                    <img src={imageUrl} alt={name} />
+                                    <h4>{name}</h4>
+                                    <p>{description}</p>
+                                </article>
+                            );
+                        })}
                     </div>
                 </div>
             </section>

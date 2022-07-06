@@ -18,7 +18,7 @@ const AllCollections = () => {
         
         console.log('key index:', id);
         
-        const res = await axios.get(`http://10.10.1.67:8080/api/item/get_all/${id}`, {
+        const res = await axios.get(`http://itransitionlasttask.herokuapp.com/api/item/get_all/${id}`, {
             headers: {
                 Authorization: accessToken,
             },

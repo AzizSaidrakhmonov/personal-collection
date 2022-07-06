@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import './fields.scss';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { UserContext } from '../../context/UserContext';
 
 const Fields = () => {
     const [modal, setModal] = useState(false);
     const accessToken = localStorage.getItem('accessToken');
 
+    const { oneUser } = useContext(UserContext);
+    const collectionId = localStorage.getItem('id');
+
     //////////////////////////////////////////////////////////////////
 
-    const [formValues, setFormValues] = useState([{ name: '', option: '' }]);
+    const [formValues, setFormValues] = useState([{ name: '', type: '' }]);
 
     let handleChange = (i, e) => {
         let newFormValues = [...formValues];
@@ -21,7 +25,7 @@ const Fields = () => {
     };
 
     let addFormFields = () => {
-        setFormValues([...formValues, { name: '', option: '' }]);
+        setFormValues([...formValues, { name: '', type: '' }]);
     };
 
     let removeFormFields = (i) => {
@@ -30,10 +34,33 @@ const Fields = () => {
         setFormValues(newFormValues);
     };
 
-    let handleSubmit = (event) => {
-        event.preventDefault();
-        
-        alert(JSON.stringify(formValues));
+    let handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const jsonForm = JSON.stringify(formValues);
+
+        // console.log(jsonForm);
+
+        try {
+            const res = await axios.post(
+                `http://itransitionlasttask.herokuapp.com/api/field/add/${oneUser.id}/${collectionId}`,
+                {
+                    fieldRequestDtoList: jsonForm
+                },
+
+                {
+                    headers: {
+                        Authorization: accessToken,
+                    },
+                },
+            );
+
+            console.log(jsonForm);
+
+            console.log(res);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     /////////////////////////////////////////////
@@ -71,22 +98,12 @@ const Fields = () => {
                                     />
                                 </div>
                                 <div className='form-inline__items'>
-                                    <select name='option'>
-                                        <option className='option' name='STRING' value={element.name || ''} onChange={(e) => handleChange(index, e)}>
-                                            STRING
-                                        </option>
-                                        <option className='option' name='INTEGER' value={element.name || ''} onChange={(e) => handleChange(index, e)}>
-                                            INTEGER
-                                        </option>
-                                        <option className='option' name='TEXT' value={element.name || ''} onChange={(e) => handleChange(index, e)}>
-                                            TEXT
-                                        </option>
-                                        <option className='option' name='DATE' value={element.name || ''} onChange={(e) => handleChange(index, e)}>
-                                            DATE
-                                        </option>
-                                        <option className='option' name='BOOLEAN' value={element.name || ''} onChange={(e) => handleChange(index, e)}>
-                                            BOOLEAN
-                                        </option>
+                                    <select name='type' onChange={(e) => handleChange(index, e)}>
+                                        <option className='option'>STRING</option>
+                                        <option className='option'>INTEGER</option>
+                                        <option className='option'>TEXT</option>
+                                        <option className='option'>DATE</option>
+                                        <option className='option'>BOOLEAN</option>
                                     </select>
                                 </div>
                                 <div className='form-inline__items'>
@@ -96,11 +113,10 @@ const Fields = () => {
                                             className='remove btn btn-danger'
                                             onClick={() => removeFormFields(index)}
                                         >
-                                            <DeleteIcon/>   
+                                            <DeleteIcon />
                                         </button>
                                     ) : null}
                                 </div>
-
                             </div>
                         ))}
                         <div className='button-section mt-4'>

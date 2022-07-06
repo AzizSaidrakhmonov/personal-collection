@@ -15,7 +15,7 @@ const CabinetCreateTopics = () => {
         const { name } = e.target.elements;
      
         try {
-            const res = await axios.post('http://10.10.1.67:8080/api/topic/add', {
+            const res = await axios.post('http://itransitionlasttask.herokuapp.com/api/topic/add', {
                 name: name.value
             }, 
             {

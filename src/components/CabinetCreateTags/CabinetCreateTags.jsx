@@ -22,7 +22,7 @@ const CabinetCreateTags = () => {
             const { name } = e.target.elements;
 
             const res = await axios.post(
-                'http://10.10.1.67:8080/api/tag/add',
+                'http://itransitionlasttask.herokuapp.com/api/tag/add',
                 {
                     name: name.value,
                 },

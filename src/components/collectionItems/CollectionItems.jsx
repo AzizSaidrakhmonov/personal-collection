@@ -20,7 +20,7 @@ const CollectionItems = () => {
             const { name } = e.target.elements;
 
             const res = await axios.post(
-                `http://10.10.1.67:8080/api/item/add/${oneUser.id}/${collectionId}`,
+                `http://itransitionlasttask.herokuapp.com/api/item/add/${oneUser.id}/${collectionId}`,
                 {
                     name: name.value,
                 },

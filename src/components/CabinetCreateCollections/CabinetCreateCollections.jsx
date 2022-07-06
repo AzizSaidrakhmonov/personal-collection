@@ -37,7 +37,7 @@ const CabinetCreateCollections = () => {
 
         try {
 
-            const res1 = await axios.post(`http://10.10.1.67:8080/api/image/profile/pic`,
+            const res1 = await axios.post(`http://itransitionlasttask.herokuapp.com/api/image/profile/pic`,
                 imageData,
                 {
                     headers: {
@@ -46,7 +46,7 @@ const CabinetCreateCollections = () => {
                     },
                 })
             
-            const res2 = await axios.post(`http://10.10.1.67:8080/api/collection/add/${userId}`, {
+            const res2 = await axios.post(`http://itransitionlasttask.herokuapp.com/api/collection/add/${userId}`, {
                 topic: topic,
                 imageUrl: res1.data.data,
                 name: name,

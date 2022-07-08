@@ -1,8 +1,8 @@
 import React from 'react';
-import './login.scss';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './login.scss';
 import axios from 'axios';
 
 const Login = () => {
@@ -13,18 +13,14 @@ const Login = () => {
 
         const { email, password } = e.target.elements;
 
-        const res = await axios.post('http://itransitionlasttask.herokuapp.com/api/auth/login', {
+        const res = await axios.post('http://10.10.2.168:8080/api/auth/login', {
             email: email.value,
             password: password.value,
         });
 
-        console.log(res.data);
-
         if (res.data.statusCode === 200) {
             localStorage.setItem('accessToken', res.data.accessToken);
             localStorage.setItem('email', email.value);
-
-            console.log(email.value);
 
             setTimeout(() => {
                 navigate('/');

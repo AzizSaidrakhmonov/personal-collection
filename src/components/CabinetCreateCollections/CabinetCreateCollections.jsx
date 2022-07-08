@@ -1,26 +1,23 @@
 import React, { useState, useContext, useEffect } from 'react';
-import './cabinetCreateCollections.scss';
-import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import CloseIcon from '@mui/icons-material/Close';
 import { UserContext } from '../../context/UserContext';
-import axios from 'axios';
 import FormData from 'form-data';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './cabinetCreateCollections.scss';
+import axios from 'axios';
+import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
+import CloseIcon from '@mui/icons-material/Close';
 
 const CabinetCreateCollections = () => {
-    const accessToken = localStorage.getItem('accessToken');
-
-    const { oneUser } = useContext(UserContext);
-    const { topics } = useContext(UserContext);
-    const userId = oneUser.id;
-
     const [file, setFile] = useState('');
     const [name, setName] = useState('');
     const [topic, setTopic] = useState('');
     const [description, setDescription] = useState('');
-
-
     const [modal, setModal] = useState(false);
+
+    const { oneUser, topics } = useContext(UserContext);
+    const userId = oneUser.id;
+
+    const accessToken = localStorage.getItem('accessToken');
 
     useEffect(() => {
         if (topics.length > 0) {
@@ -28,44 +25,38 @@ const CabinetCreateCollections = () => {
         }
     }, [topics]);
 
-
     const sendCollection = async (e) => {
         e.preventDefault();
 
         const imageData = new FormData();
-        imageData.append('file', file, file.name)
+        imageData.append('file', file, file.name);
 
         try {
+            const res1 = await axios.post(`http://10.10.2.168:8080/api/image/profile/pic`, imageData, {
+                headers: {
+                    Authorization: accessToken,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
 
-            const res1 = await axios.post(`http://itransitionlasttask.herokuapp.com/api/image/profile/pic`,
-                imageData,
+            const res2 = await axios.post(
+                `http://10.10.2.168:8080/api/collection/add/${userId}`,
+                {
+                    topic: topic,
+                    imageUrl: res1.data.data,
+                    name: name,
+                    description: description,
+                },
                 {
                     headers: {
                         Authorization: accessToken,
-                        'Content-Type': 'multipart/form-data',
                     },
-                })
-            
-            const res2 = await axios.post(`http://itransitionlasttask.herokuapp.com/api/collection/add/${userId}`, {
-                topic: topic,
-                imageUrl: res1.data.data,
-                name: name,
-                description: description
-            },
-            {
-                headers: {
-                    Authorization: accessToken
-                }
-            })
-
-            console.log(res1.data.data)
-            console.log(res2.data)
-            
- 
-    } catch(err) {
-        console.log(err)
-    }
-}
+                },
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
         <div className='cabinet2'>
@@ -91,17 +82,18 @@ const CabinetCreateCollections = () => {
                                     style={{ cursor: 'pointer' }}
                                 >
                                     {topics.map((topic) => {
-                                        const {id, name} = topic;
+                                        const { id, name } = topic;
                                         return (
-                                        <option
-                                            key={id}
-                                            value={name}
-                                            className='cabinet2-main__form-input'
-                                            style={{ overflow: 'hidden' }}
-                                        >
-                                            {name}
-                                        </option>
-                                    )})}
+                                            <option
+                                                key={id}
+                                                value={name}
+                                                className='cabinet2-main__form-input'
+                                                style={{ overflow: 'hidden' }}
+                                            >
+                                                {name}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
                                 <CloseIcon
                                     onClick={() => {
@@ -155,14 +147,16 @@ const CabinetCreateCollections = () => {
                                     required
                                     className='cabinet2-main__form-input'
                                     onChange={(e) => setDescription(e.target.value)}
-                                    style={{height: '30px'}}
+                                    style={{ height: '30px' }}
                                 ></textarea>
-                                <button 
-                                    type='submit' 
+                                <button
+                                    type='submit'
                                     className='cabinet2-main__form-btn btn btn-primary'
-                                    onClick={() => setTimeout(() => {
-                                        setModal(false)
-                                    }, [500])}
+                                    onClick={() =>
+                                        setTimeout(() => {
+                                            setModal(false);
+                                        }, [500])
+                                    }
                                 >
                                     Add
                                 </button>

@@ -53,17 +53,69 @@ $box-shadow: 0 2px 8px #00000042;
 
 .create-tags__main {
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 50px;
 }
 
 .create-tags__item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 0 10px;
+    flex-direction: column;
     box-shadow: $box-shadow;
+    background: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    flex: 6;
+
+    &:hover {
+        transition: all .3s linear;
+    }
+
+    &-id,
+    &-name {
+        display: flex;
+
+        span {
+            font-size: 16px;
+            font-weight: 500;
+            color: #888;
+        }
+
+        p {
+            color: #000;
+            margin-left: 5px;
+            font-weight: 400;
+            font-size: 16px;
+        }
+    }
+
+    .create-tags__item-actions {
+        display: flex;
+        justify-content: end;
+        gap: 5px;
+
+        .edit-tag {
+            background-color: rgb(255, 217, 0);
+            padding: 3px;
+            cursor: pointer;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: rgb(255, 166, 0);
+            }
+        }
+
+        .delete-tag {
+            background-color: rgb(255, 107, 107);
+            padding: 3px;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgb(255, 0, 0);
+            }
+        }
+    }
 
 }

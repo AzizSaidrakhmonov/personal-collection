@@ -1,69 +1,42 @@
-import React, { useState, useEffect, useContext } from 'react';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import CloseIcon from '@mui/icons-material/Close';
-import axios from 'axios';
-import './fields.scss';
-import { Link } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './fields.scss';
+import axios from 'axios';
+import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Fields = () => {
-    const [modal, setModal] = useState(false);
-    const accessToken = localStorage.getItem('accessToken');
 
-    const { oneUser } = useContext(UserContext);
+    const [name, setName] = useState('');
+    const [type, setType] = useState('STRING');
+    const [modal, setModal] = useState(false);
+    const { oneUser, fields } = useContext(UserContext);
+
+    const accessToken = localStorage.getItem('accessToken');
     const collectionId = localStorage.getItem('id');
 
-    //////////////////////////////////////////////////////////////////
-
-    const [formValues, setFormValues] = useState([{ name: '', type: '' }]);
-
-    let handleChange = (i, e) => {
-        let newFormValues = [...formValues];
-        newFormValues[i][e.target.name] = e.target.value;
-        setFormValues(newFormValues);
-    };
-
-    let addFormFields = () => {
-        setFormValues([...formValues, { name: '', type: '' }]);
-    };
-
-    let removeFormFields = (i) => {
-        let newFormValues = [...formValues];
-        newFormValues.splice(i, 1);
-        setFormValues(newFormValues);
-    };
-
-    let handleSubmit = async (e) => {
+    const handleField = async (e) => {
         e.preventDefault();
-
-        const jsonForm = JSON.stringify(formValues);
-
-        // console.log(jsonForm);
 
         try {
             const res = await axios.post(
-                `http://itransitionlasttask.herokuapp.com/api/field/add/${oneUser.id}/${collectionId}`,
+                `http://10.10.2.168:8080/api/field/add/${oneUser.id}/${collectionId}`,
                 {
-                    fieldRequestDtoList: jsonForm
+                    name: name,
+                    type: type,
                 },
-
                 {
                     headers: {
                         Authorization: accessToken,
                     },
                 },
             );
-
-            console.log(jsonForm);
-
-            console.log(res);
         } catch (err) {
             console.log(err);
         }
     };
-
-    /////////////////////////////////////////////
 
     return (
         <div className='create-fields'>
@@ -76,7 +49,7 @@ const Fields = () => {
             </div>
             {modal && (
                 <div className='create-fields__form'>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleField}>
                         <div className='create-fields__header'>
                             <h4>Fields</h4>
                             <CloseIcon
@@ -86,50 +59,78 @@ const Fields = () => {
                                 className='close-modal__icon'
                             />
                         </div>
-                        {formValues.map((element, index) => (
-                            <div className='form-inline mt-3' key={index}>
-                                <div className='form-inline__items'>
-                                    <input
-                                        type='text'
-                                        name='name'
-                                        value={element.name || ''}
-                                        onChange={(e) => handleChange(index, e)}
-                                        placeholder='Name'
-                                    />
-                                </div>
-                                <div className='form-inline__items'>
-                                    <select name='type' onChange={(e) => handleChange(index, e)}>
-                                        <option className='option'>STRING</option>
-                                        <option className='option'>INTEGER</option>
-                                        <option className='option'>TEXT</option>
-                                        <option className='option'>DATE</option>
-                                        <option className='option'>BOOLEAN</option>
-                                    </select>
-                                </div>
-                                <div className='form-inline__items'>
-                                    {index ? (
-                                        <button
-                                            type='button'
-                                            className='remove btn btn-danger'
-                                            onClick={() => removeFormFields(index)}
-                                        >
-                                            <DeleteIcon />
-                                        </button>
-                                    ) : null}
-                                </div>
+                        <div className='form-inline mt-3'>
+                            <div className='form-inline__items'>
+                                <input
+                                    type='text'
+                                    name='name'
+                                    placeholder='Name'
+                                    onChange={(e) => setName(e.target.value)}
+                                />
                             </div>
-                        ))}
-                        <div className='button-section mt-4'>
-                            <button className='btn btn-success' type='button' onClick={() => addFormFields()}>
-                                Add More Fields
-                            </button>
-                            <button className='btn btn-primary mx-3' type='submit'>
+                            <div className='form-inline__items'>
+                                <select name='type' onChange={(e) => setType(e.target.value)}>
+                                    <option className='option' value='STRING'>
+                                        STRING
+                                    </option>
+                                    <option className='option' value='INTEGER'>
+                                        INTEGER
+                                    </option>
+                                    <option className='option' value='TEXT'>
+                                        TEXT
+                                    </option>
+                                    <option className='option' value='DATE'>
+                                        DATE
+                                    </option>
+                                    <option className='option' value='BOOLEAN'>
+                                        BOOLEAN
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className='button-section mt-5'>
+                            <button
+                                className='btn btn-primary'
+                                type='submit'
+                                onClick={() => {
+                                    setTimeout(() => {
+                                        setModal(false);
+                                    }, 500);
+                                }}
+                            >
                                 Submit
                             </button>
                         </div>
                     </form>
                 </div>
             )}
+
+            <div className='all-fields'>
+                {fields.map((field) => {
+                    const { id, name, type } = field;
+
+                    return (
+                        <div className='single-field' key={id}>
+                            <div className='single-field__id'>
+                                <span>Id:</span>
+                                <p>{id}</p>
+                            </div>
+                            <div className='single-field__name'>
+                                <span>Name:</span>
+                                <p>{name}</p>
+                            </div>
+                            <div className='single-field__type'>
+                                <span>Type:</span>
+                                <p>{type}</p>
+                            </div>
+                            <div className='single-field__item-actions'>
+                                <EditIcon className='edit-tag' />
+                                <DeleteIcon className='delete-tag' />
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 };

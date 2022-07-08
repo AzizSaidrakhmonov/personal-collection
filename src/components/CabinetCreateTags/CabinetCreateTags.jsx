@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import CloseIcon from '@mui/icons-material/Close';
-import axios from 'axios';
-import './cabinetCreateTags.scss';
 import { UserContext } from '../../context/UserContext';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './cabinetCreateTags.scss';
+import axios from 'axios';
+import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const CabinetCreateTags = () => {
     const { tags } = useContext(UserContext);
-    // console.log(tags);
-
     const [modal, setModal] = useState(false);
-
     const accessToken = localStorage.getItem('accessToken');
 
     const sendCreatedTag = async (e) => {
@@ -22,7 +19,7 @@ const CabinetCreateTags = () => {
             const { name } = e.target.elements;
 
             const res = await axios.post(
-                'http://itransitionlasttask.herokuapp.com/api/tag/add',
+                'http://10.10.2.168:8080/api/tag/add',
                 {
                     name: name.value,
                 },
@@ -32,8 +29,6 @@ const CabinetCreateTags = () => {
                     },
                 },
             );
-
-            console.log(res);
         } catch (err) {
             console.error(err);
         }
@@ -43,9 +38,7 @@ const CabinetCreateTags = () => {
         sendCreatedTag();
     }, []);
 
-    useEffect(() => {
-        console.log(tags)
-    }, [tags])
+    useEffect(() => {}, [tags]);
 
     return (
         <div className='create-tags'>
@@ -98,11 +91,17 @@ const CabinetCreateTags = () => {
                     const { id, name } = tag;
                     return (
                         <div className='create-tags__item'>
-                            <h4>{id}</h4>
-                            <h4>{name}</h4>
-                            <div className='create-tags__actions'>
-                                <EditIcon />
-                                <DeleteIcon/>
+                            <div className='create-tags__item-id'>
+                                <span>Id:</span>
+                                <p>{id}</p>
+                            </div>
+                            <div className='create-tags__item-name'>
+                                <span>Name:</span>
+                                <p>{name}</p>
+                            </div>
+                            <div className='create-tags__item-actions'>
+                                <EditIcon className='edit-tag' />
+                                <DeleteIcon className='delete-tag' />
                             </div>
                         </div>
                     );

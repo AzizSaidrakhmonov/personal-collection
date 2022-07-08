@@ -1,6 +1,8 @@
 import React from 'react';
-import './sidebar.scss';
+import { Link } from 'react-router-dom';
+import { useStateContext } from '../../context/ToggleSidebar';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './sidebar.scss';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import TagIcon from '@mui/icons-material/Tag';
 import GroupIcon from '@mui/icons-material/Group';
@@ -8,8 +10,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LanguageIcon from '@mui/icons-material/Language';
 import PaletteIcon from '@mui/icons-material/Palette';
-import { Link } from 'react-router-dom';
-import { useStateContext } from '../../context/ToggleSidebar';
 
 const Sidebar = () => {
     const { activeMenu } = useStateContext();
@@ -54,10 +54,14 @@ const Sidebar = () => {
                                     Personal Cabinet
                                 </li>
                             </Link>
-                            <Link to='/login' style={{ textDecoration: 'none' }} onClick={() => {
-                                localStorage.removeItem('accessToken')
-                                localStorage.removeItem('email')
-                            }}>
+                            <Link
+                                to='/login'
+                                style={{ textDecoration: 'none' }}
+                                onClick={() => {
+                                    localStorage.removeItem('accessToken');
+                                    localStorage.removeItem('email');
+                                }}
+                            >
                                 <li className='sidebar-dashboard__item'>
                                     <LogoutIcon className='sidebar-dashboard__icon' />
                                     Logout

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import './register.scss';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { useNavigate } from 'react-router';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './register.scss';
+import axios from 'axios';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -12,19 +12,15 @@ const Register = () => {
         e.preventDefault();
         const { name, email, password } = e.target.elements;
 
-        const res = await axios.post('http://itransitionlasttask.herokuapp.com/api/auth/register', {
+        const res = await axios.post('http://10.10.2.168:8080/api/auth/register', {
             name: name.value,
             email: email.value,
             password: password.value,
         });
 
-        console.log(res);
-
         if (res.data.statusCode === 200) {
             localStorage.setItem('accessToken', res.data.accessToken);
             localStorage.setItem('email', email.value);
-
-            console.log(email.value);
 
             setTimeout(() => {
                 navigate(`/`);

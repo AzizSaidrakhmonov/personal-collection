@@ -26,6 +26,7 @@ $box-shadow: 0 2px 8px #00000042;
             outline: none;
         }
     }
+
     form {
         display: flex;
         flex-direction: column;
@@ -41,6 +42,7 @@ $box-shadow: 0 2px 8px #00000042;
 
     .close-modal__icon {
         margin-left: 200px;
+
         &:hover {
             cursor: pointer;
         }

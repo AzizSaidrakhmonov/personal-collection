@@ -1,10 +1,10 @@
 import React from 'react';
-import './navbar.scss';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import { useStateContext } from '../../context/ToggleSidebar';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './navbar.scss';
+import { useStateContext } from '../../context/ToggleSidebar';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Navbar = () => {
     const { setActiveMenu } = useStateContext();

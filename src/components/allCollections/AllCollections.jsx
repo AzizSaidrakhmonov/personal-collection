@@ -1,31 +1,25 @@
 import React, { useContext } from 'react';
-import axios from 'axios';
-import './allCollections.scss';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router';
-import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
+import './allCollections.scss';
 
 const AllCollections = () => {
-    const navigate = useNavigate();
-    const accessToken = localStorage.getItem('accessToken');
-
     const { allCollections, topics } = useContext(UserContext);
+    const navigate = useNavigate();
 
-    console.log(allCollections);
+    const accessToken = localStorage.getItem('accessToken');
 
     const handleClickPost = async (e, id) => {
         e.preventDefault();
-        
-        console.log('key index:', id);
-        
-        const res = await axios.get(`http://itransitionlasttask.herokuapp.com/api/item/get_all/${id}`, {
+
+        const res = await axios.get(`http://10.10.2.168:8080/api/item/get_all/${id}`, {
             headers: {
                 Authorization: accessToken,
             },
         });
-        
-        console.log(res.data.data);
-        localStorage.setItem('id', id)
+
+        localStorage.setItem('id', id);
 
         navigate('/allCollections/items');
     };

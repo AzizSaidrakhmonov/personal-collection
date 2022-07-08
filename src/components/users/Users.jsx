@@ -1,24 +1,18 @@
-import './users.scss';
 import * as React from 'react';
 import { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router';
 import { UserContext } from '../../context/UserContext';
+import axios from 'axios';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './users.scss';
 
 const Users = () => {
-
-    const { oneUser } = useContext(UserContext);
-
-
-
-    const { users } = useContext(UserContext);
-
     const [selectText, setSelectText] = useState('');
     const [selected, setSelected] = useState([]);
     const [search, setSearch] = useState('');
     const [toggle, setToggle] = useState(false);
+
+    const { oneUser, users } = useContext(UserContext);
 
     const navigate = useNavigate();
     const accessToken = sessionStorage.getItem('accessToken');
@@ -153,7 +147,9 @@ const Users = () => {
                                 <button
                                     type='button'
                                     onClick={handleSelect}
-                                    className={`users-grid__check btn btn-success ${`${oneUser.role === 'ROLE_ADMIN' ? 'admin' : 'user'}`}`}
+                                    className={`users-grid__check btn btn-success ${`${
+                                        oneUser.role === 'ROLE_ADMIN' ? 'admin' : 'user'
+                                    }`}`}
                                 >
                                     {selectText}
                                 </button>
@@ -182,7 +178,9 @@ const Users = () => {
                                     <tr key={id}>
                                         <td>
                                             <input
-                                                className={`table-checkbox ${`${oneUser.role === 'ROLE_ADMIN' ? 'admin' : 'user'}`}`}
+                                                className={`table-checkbox ${`${
+                                                    oneUser.role === 'ROLE_ADMIN' ? 'admin' : 'user'
+                                                }`}`}
                                                 type='checkbox'
                                                 value={id}
                                                 onChange={handleChange}

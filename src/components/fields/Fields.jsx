@@ -111,10 +111,6 @@ const Fields = () => {
 
                     return (
                         <div className='single-field' key={id}>
-                            <div className='single-field__id'>
-                                <span>Id:</span>
-                                <p>{id}</p>
-                            </div>
                             <div className='single-field__name'>
                                 <span>Name:</span>
                                 <p>{name}</p>

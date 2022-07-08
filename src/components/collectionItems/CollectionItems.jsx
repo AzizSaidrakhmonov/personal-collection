@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './collectionItems.scss';
 import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const CollectionItems = () => {
-    const { oneUser, tags, fields } = useContext(UserContext);
+    const { oneUser, tags, fields, items } = useContext(UserContext);
+
+    const navigate = useNavigate();
 
     const [modal, setModal] = useState(false);
     const [itemName, setItemName] = useState('');
@@ -43,10 +46,6 @@ const CollectionItems = () => {
         setFormValues(newFormValues);
     };
 
-    const jsonForm = JSON.stringify(formValues);
-
-    console.log(jsonForm);
-
     ///////////////////////////////////////////////////////////////////////////////////////
 
     useEffect(() => {
@@ -56,7 +55,6 @@ const CollectionItems = () => {
     }, [fields]);
 
     const [fieldValues, setFieldValues] = useState([]);
-    console.log(fields);
 
     let handleFieldChange = (i, e) => {
         let newFieldValues = [...fieldValues];
@@ -64,44 +62,50 @@ const CollectionItems = () => {
         setFieldValues(newFieldValues);
     };
 
-    const jsonFieldForm = JSON.stringify(fieldValues);
-
-    console.log(jsonFieldForm);
-
     //////////////////////////////////////////////////////////////////////////////////////
 
     const sendCreatedCollectionItem = async (e) => {
         e.preventDefault();
 
+        const payload = {
+            itemName: itemName,
+            fieldList: fieldValues,
+            tagList: formValues,
+        };
+
         try {
             const res = await axios.post(
                 `http://10.10.2.168:8080/api/item/add/${oneUser.id}/${collectionId}`,
-                {
-                    itemName: itemName,
-
-                    field: {
-                        fieldList: jsonFieldForm,
-                    },
-
-                    tag: {
-                        tagList: jsonForm,
-                    },
-                },
+                payload,
                 {
                     headers: {
                         Authorization: accessToken,
                     },
                 },
             );
-
-            console.log(res.data);
         } catch (err) {
             console.error(err);
         }
     };
 
+   
+    const handleCreatedCollectionItem = async (e, itemId) => {
+        e.preventDefault();
+
+        const res = await axios.get(`http://10.10.2.168:8080/api/item/get/${collectionId}/${itemId}`, {
+            headers: {
+                Authorization: accessToken,
+            },
+        });
+
+        localStorage.setItem('itemId', itemId);
+
+        navigate('/allCollections/items/item');
+    };
+
     useEffect(() => {
         sendCreatedCollectionItem();
+        handleCreatedCollectionItem();
     }, []);
 
     return (
@@ -280,6 +284,31 @@ const CollectionItems = () => {
                     </form>
                 </div>
             )}
+
+            <div className='create-items__main'>
+                <h2 className='create-items__main-header'>All Items</h2>
+                <div className='create-items__inner'>
+                    {items.map((item) => {
+                        const { id, name } = item;
+                        return (
+                            <div className='create-items__item' 
+                                key={id} 
+                                onClick={(e) => handleCreatedCollectionItem(e, id)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <div className='create-items__item-name'>
+                                    <span>Name:</span>
+                                    <p>{name}</p>
+                                </div>
+                                <div className='create-items__item-actions'>
+                                    <EditIcon className='edit-item' />
+                                    <DeleteIcon className='delete-item' />
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
         </div>
     );
 };

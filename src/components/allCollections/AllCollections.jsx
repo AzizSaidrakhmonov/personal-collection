@@ -21,6 +21,8 @@ const AllCollections = () => {
 
         localStorage.setItem('id', id);
 
+        // console.log(res.data)
+
         navigate('/allCollections/items');
     };
 

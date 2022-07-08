@@ -45,10 +45,6 @@ const Tags = () => {
                     const { id, name } = tag;
                     return (
                         <div className='create-tags__item'>
-                            <div className='create-tags__item-id'>
-                                <span>Id:</span>
-                                <p>{id}</p>
-                            </div>
                             <div className='create-tags__item-name'>
                                 <span>Name:</span>
                                 <p>{name}</p>

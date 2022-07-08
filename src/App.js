@@ -13,6 +13,7 @@ import CabinetCreateTopics from './components/CabinetCreateTopics/CabinetCreateT
 import Tags from './components/tags/Tags';
 import Collections from './components/collectionItems/CollectionItems';
 import Fields from './components/fields/Fields';
+import SingleItem from './components/singleItem/SingleItem';
 
 const App = () => {
     return (
@@ -23,9 +24,10 @@ const App = () => {
                         <Route path='/' element={<TopCollections />} />
                         <Route path='/allCollections' element={<AllCollections />} />
                         <Route path='/allCollections/items' element={<Collections />} />
+                        <Route path='/allCollections/items/item' element={<SingleItem/>}/>
+                        <Route path='/fields' element={<Fields />} />
                         <Route path='/allUsers' element={<Users />} />
                         <Route path='/tags' element={<Tags />} />
-                        <Route path='/fields' element={<Fields />} />
                         <Route path='/personalCabinet' element={<Cabinet />} />
                         <Route path='/personalCabinet/createCollections' element={<CabinetCreateCollections />} />
                         <Route path='/personalCabinet/createTags' element={<CabinetCreateTags />} />

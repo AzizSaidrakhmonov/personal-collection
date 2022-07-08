@@ -13,10 +13,13 @@ const Home = () => {
     const [tags, setTags] = useState([]);
     const [allCollections, setAllCollections] = useState([]);
     const [fields, setFields] = useState([]);
+    const [items, setItems] = useState([]);
+    const [singleItem, setSingleItem] = useState([]);
 
     const userEmail = localStorage.getItem('email');
     const accessToken = localStorage.getItem('accessToken');
     const collectionId = localStorage.getItem('id');
+    const itemId = localStorage.getItem('itemId');
 
     const getAllUsers = async () => {
         try {
@@ -104,12 +107,41 @@ const Home = () => {
                 },
             });
 
-            console.log(res);
             setFields(res.data.data);
         } catch (err) {
             console.log(err);
         }
     };
+
+    const getItems = async () => {
+        try{
+            const res = await axios.get(`http://10.10.2.168:8080/api/item/get_all/${collectionId}`, {
+                headers: {
+                    Authorization: accessToken,
+                }
+            })
+
+            setItems(res.data.data)
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+
+    const getSingleItem = async () => {
+        try {
+            const res = await axios.get(`http://10.10.2.168:8080/api/item/get/${collectionId}/${itemId}`, {
+                headers: {
+                    Authorization: accessToken
+                }
+            })
+
+            setSingleItem(res.data.data);
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     useEffect(() => {
         getOneUser();
@@ -118,6 +150,8 @@ const Home = () => {
         getTopics();
         getTags();
         getFields();
+        getItems();
+        getSingleItem();
     }, []);
 
     return (
@@ -134,6 +168,8 @@ const Home = () => {
                             topics: topics,
                             tags: tags,
                             fields: fields,
+                            items: items,
+                            singleItem: singleItem,
                         }}
                     >
                         <Outlet />

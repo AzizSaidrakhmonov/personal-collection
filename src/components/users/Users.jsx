@@ -43,7 +43,7 @@ const Users = () => {
     const handleBlock = async () => {
         try {
             const res = await axios.put(
-                'http://10.10.1.67:8080/api/admin/change_state',
+                'http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/admin/change_state',
                 {
                     arrId: selected, // selected users will block
                     state: false,

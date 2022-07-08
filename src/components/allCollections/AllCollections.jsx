@@ -13,7 +13,7 @@ const AllCollections = () => {
     const handleClickPost = async (e, id) => {
         e.preventDefault();
 
-        const res = await axios.get(`http://10.10.2.168:8080/api/item/get_all/${id}`, {
+        const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/item/get_all/${id}`, {
             headers: {
                 Authorization: accessToken,
             },

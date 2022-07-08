@@ -13,7 +13,7 @@ const Login = () => {
 
         const { email, password } = e.target.elements;
 
-        const res = await axios.post('http://10.10.2.168:8080/api/auth/login', {
+        const res = await axios.post('http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/auth/login', {
             email: email.value,
             password: password.value,
         });

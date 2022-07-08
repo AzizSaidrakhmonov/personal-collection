@@ -32,7 +32,7 @@ const CabinetCreateCollections = () => {
         imageData.append('file', file, file.name);
 
         try {
-            const res1 = await axios.post(`http://10.10.2.168:8080/api/image/profile/pic`, imageData, {
+            const res1 = await axios.post(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/image/profile/pic`, imageData, {
                 headers: {
                     Authorization: accessToken,
                     'Content-Type': 'multipart/form-data',
@@ -40,7 +40,7 @@ const CabinetCreateCollections = () => {
             });
 
             const res2 = await axios.post(
-                `http://10.10.2.168:8080/api/collection/add/${userId}`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/collection/add/${userId}`,
                 {
                     topic: topic,
                     imageUrl: res1.data.data,

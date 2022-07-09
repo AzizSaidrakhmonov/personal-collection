@@ -7,6 +7,7 @@ import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import e from 'cors';
 
 const CollectionItems = () => {
     const { oneUser, tags, fields, items } = useContext(UserContext);
@@ -26,9 +27,10 @@ const CollectionItems = () => {
         }
     }, [tags]);
 
+
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    const [formValues, setFormValues] = useState([{ name: 'This is first tag' }]);
+    const [formValues, setFormValues] = useState([{ name: ''}]);
 
     let handleChange = (i, e) => {
         let newFormValues = [...formValues];
@@ -37,7 +39,7 @@ const CollectionItems = () => {
     };
 
     let addFormFields = () => {
-        setFormValues([...formValues, { name: 'This is first tag' }]);
+        setFormValues([...formValues, { name: '' }]);
     };
 
     let removeFormFields = (i) => {
@@ -61,6 +63,8 @@ const CollectionItems = () => {
         newFieldValues[i][e.target.name] = e.target.value;
         setFieldValues(newFieldValues);
     };
+
+    console.log(formValues)
 
     //////////////////////////////////////////////////////////////////////////////////////
 
@@ -148,7 +152,8 @@ const CollectionItems = () => {
                                     className='collection-items__form-input '
                                     style={{ cursor: 'pointer' }}
                                 >
-                                    {tags.map((tag) => {
+                                    {
+                                    tags.map((tag) => {
                                         const { id, name } = tag;
                                         return (
                                             <option

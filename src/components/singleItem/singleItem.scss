@@ -1,18 +1,30 @@
 $box-shadow: 0 2px 8px #00000042;
+$bg-color: #dfebff;
 
 
 .single-item {
     display: flex;
-    justify-content: space-evenly; 
-    box-shadow: $box-shadow;
-    background: #fff;
+    justify-content: space-evenly;
     border-radius: 5px;
-    width: 70%;
     margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 30px;
 
-    &__main {
-        border-right: 1px solid #888;
-        padding-right: 100px;
-        
+    &__main, 
+    &__comments {
+        box-shadow: $box-shadow;
+        border-radius: 5px;
+        padding: 20px 50px;
+        flex: 6;
+        border: 10px solid #fff;
+        background-color: #fff;
+    }
+
+    &__name, &__likes, &__comments, &__tag, &__field, &__actions {
+        display: flex;
+    }
+    
+    &__comments {
+        background: $bg-color;
     }
 }

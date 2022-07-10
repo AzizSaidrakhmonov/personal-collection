@@ -9,10 +9,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+import { useTranslation } from 'react-i18next';
+
 const CabinetCreateTags = () => {
     const { tags, getTags } = useContext(UserContext);
     const [modal, setModal] = useState(false);
     const accessToken = localStorage.getItem('accessToken');
+
+    const { t, i18n } = useTranslation();
 
     const sendCreatedTag = async (e) => {
         e.preventDefault();
@@ -66,11 +70,12 @@ const CabinetCreateTags = () => {
                     <Link to='/personalCabinet'>
                         <button className='btn btn-primary mx-3'>
                             <ArrowBackIcon />
-                            Back
+                            {t('create tags back')}
                         </button>
                     </Link>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
-                        Create New Tag
+                    {t('create tags create')}
+                        
                     </button>
                 </div>
             </div>
@@ -89,7 +94,7 @@ const CabinetCreateTags = () => {
                                 <input
                                     type='text'
                                     name='name'
-                                    placeholder='Name'
+                                    placeholder={t('create tags name')}
                                     required
                                     className='create-tags__form-input'
                                 />
@@ -97,7 +102,7 @@ const CabinetCreateTags = () => {
                             <div className='wrapper'>
                                 <input
                                     type='submit'
-                                    value='Add'
+                                    value={t('create tags modal btn')}
                                     className='create-tags__form-btn btn btn-primary mt-3'
                                     onClick={() =>
                                         setTimeout(() => {
@@ -117,7 +122,7 @@ const CabinetCreateTags = () => {
                     return (
                         <div className='create-tags__item' key={id}>
                             <div className='create-tags__item-name'>
-                                <span>Name:</span>
+                                <span>{t('create tags name')}:</span>
                                 <p>{name}</p>
                             </div>
                             <div className='create-tags__item-actions'>

@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './register.scss';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
     const navigate = useNavigate();
+    const {t, i18n} = useTranslation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,44 +37,44 @@ const Register = () => {
     return (
         <div className='register-page'>
             <form className='register-page__form' onSubmit={handleSubmit}>
-                <h1 className='register-page__title mt-5'>Sign Up</h1>
+                <h1 className='register-page__title mt-5'>{t('signup page signup')}</h1>
                 <div className='mt-4'>
-                    <label htmlFor='name'>Name</label>
+                    <label htmlFor='name'>{t('signup page name')}</label>
                     <input
                         type='text'
                         name='name'
-                        placeholder='Name'
+                        placeholder={t('signup page name')}
                         required
                         minLength={1}
                         className='register-page__input form-control'
                     />
                 </div>
                 <div className='mt-4'>
-                    <label htmlFor='email'>Email</label>
+                    <label htmlFor='email'>{t('signup page email')}</label>
                     <input
                         type='email'
                         name='email'
-                        placeholder='Email'
+                        placeholder={t('signup page email')}
                         required
                         minLength={1}
                         className='register-page__input form-control'
                     />
                 </div>
                 <div className='mt-4'>
-                    <label htmlFor='password'>Password</label>
+                    <label htmlFor='password'>{t('signup page password')}</label>
                     <input
                         type='password'
                         name='password'
-                        placeholder='Password'
+                        placeholder={t('signup page password')}
                         required
                         minLength={1}
                         className='register-page__input form-control'
                     />
                 </div>
-                <input type='submit' value='Sign Up' className='register-page__submit btn btn-primary mt-4' />
+                <input type='submit' value={t('signup page signup')} className='register-page__submit btn btn-primary mt-4' />
                 <div className='register-page__link-wrapper mt-4'>
-                    <p className='register-page__link'>Do you have an account?</p>
-                    <Link to='/login'>Log In</Link>
+                    <p className='register-page__link'>{t('signup page question')}</p>
+                    <Link to='/login'>{t('signup page login')}</Link>
                 </div>
             </form>
         </div>

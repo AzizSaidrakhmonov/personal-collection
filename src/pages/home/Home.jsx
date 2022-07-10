@@ -106,6 +106,7 @@ const Home = () => {
         if (oneUserId !== undefined) {
             getFields();
             getOwnCollections();
+            getSingleItem();
         }
     },[oneUserId]);
     
@@ -154,7 +155,7 @@ const Home = () => {
 
     const getSingleItem = async () => {
         try {
-            const res = await axios.get(`http://192.168.43.127:8080/api/item/get/${collectionId}/${itemId}`, {
+            const res = await axios.get(`http://192.168.43.127:8080/api/item/get/${oneUser.id}/${collectionId}/${itemId}`, {
                 headers: {
                     Authorization: accessToken
                 }

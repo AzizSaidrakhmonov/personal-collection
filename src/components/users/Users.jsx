@@ -6,6 +6,8 @@ import axios from 'axios';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './users.scss';
 
+import { useTranslation } from 'react-i18next';
+
 const Users = () => {
     const [selectText, setSelectText] = useState('');
     const [selected, setSelected] = useState([]);
@@ -15,6 +17,8 @@ const Users = () => {
     const { oneUser, users } = useContext(UserContext);
 
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation();
+
     const accessToken = localStorage.getItem('accessToken');
 
     useEffect(() => {
@@ -52,7 +56,7 @@ const Users = () => {
                 },
             })
             .then((res) => {
-                console.log(res.data)
+                console.log(res.data);
                 if (res.data.statusCode === 200) {
                     setToggle(!toggle);
                 } else if (res.data.statusCode === 401 || res.data.statusCode === 403) {
@@ -77,7 +81,7 @@ const Users = () => {
                 },
             })
             .then((res) => {
-                console.log(res.data.data)
+                console.log(res.data.data);
                 if (res.data.statusCode === 200) {
                     setToggle(!toggle);
                 } else if (res.data.statusCode === 401 || res.data.statusCode === 403) {
@@ -128,22 +132,22 @@ const Users = () => {
             <div className='actions'>
                 <input
                     type='text'
-                    placeholder='Search by Name'
+                    placeholder={t('users search')}
                     onChange={(e) => setSearch(e.target.value)}
                     value={search}
                 />
                 <div className={`action ${`${oneUser.role === 'ROLE_ADMIN' ? 'admin' : 'user'}`}`}>
                     <span className='action-btn btn btn-danger' onClick={handleBlock}>
-                        Block
+                        {t('users block')}
                     </span>
                     <span className='action-btn btn btn-success' onClick={handleUnblock}>
-                        Unblock
+                        {t('users unblock')}
                     </span>
                     <span className='action-btn btn btn-warning' onClick={handleDelete}>
-                        Delete
+                        {t('users delete')}
                     </span>
-                    <span className='action-btn btn btn-info'>Admin</span>
-                    <span className='action-btn btn btn-dark'>User</span>
+                    <span className='action-btn btn btn-info'>{t('users admin')}</span>
+                    <span className='action-btn btn btn-dark'>{t('users user')}</span>
                 </div>
             </div>
             <div className='users-grid'>
@@ -163,11 +167,11 @@ const Users = () => {
                             </th>
                             <th>No</th>
                             <th>Id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{t('users table name')}</th>
+                            <th>{t('users table email')}</th>
+                            <th>{t('users table role')}</th>
+                            <th>{t('users table state')}</th>
+                            <th>{t('users table actions')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -203,7 +207,7 @@ const Users = () => {
                                             {e.state === 1 ? 'Active' : e.state === 0 ? 'Blocked' : e.state}
                                         </td>
                                         <td>
-                                            <button className='btn btn-primary'>view</button>
+                                            <button className='btn btn-primary'>{t('users table preview')}</button>
                                         </td>
                                     </tr>
                                 );

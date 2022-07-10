@@ -1,0 +1,124 @@
+{
+    "logo personal": "Personal",
+    "logo collections": "Collections",
+    "sidebar main": "Main",
+    "sidebar main collections": "Collections",
+    "sidebar main users": "Users",
+    "sidebar main tags": "Tags",
+    "sidebar user": "User",
+    "sidebar user personal cabinet": "Personal Cabinet",
+    "sidebar user logout": "Logout",
+    "sidebar settings": "Settings",
+    "sidebar settings language": "Language",
+    "sidebar settings theme": "Theme",
+
+    "navbar login": "Log In",
+    "navbar signup": "Sign Up",
+    "navbar search": "Search...",
+
+    "allCollections search": "Search by Topics",
+    "allCollections topic": "Topic",
+    "allCollections name": "Name",
+    "allCollections description": "Description",
+
+    "items back btn": "Back",
+    "items create btn": "Create New Item",
+    "items field btn": "Fields",
+    "items modal name": "Name",
+    "items modal add more tags": "Add more tags",
+    "items modal added fields": "Added fields",
+    "items modal add btn": "Add",
+    "items all": "All items",
+    "items all name": "Name",
+
+    "fields back btn": "Back",
+    "fields create btn": "Create New Field",
+    "fields modal title": "Fields",
+    "fields modal name": "Name",
+    "fields modal add": "Add",
+    "fields name": "Name",
+    "fields type": "Type",
+
+    "single item back btn": "Back",
+    "single item name": "Name",
+    "single item tags": "Tags",
+    "single item fields": "Fields",
+    "single item likes": "likes",
+    "single item comments": "Add a comment...",
+    "single item comments post": "Post",
+
+    "users search": "Search by Name",
+    "users block": "Block",
+    "users unblock": "UnBlock",
+    "users delete": "Delete",
+    "users admin": "Admin",
+    "users user": "User",
+    "users table name": "Name",
+    "users table email": "Email",
+    "users table role": "Role",
+    "users table state": "Status",
+    "users table actions": "Actions",
+    "users table preview": "View",
+
+    "tags all": "All Tags",
+    "tags name": "Name",
+
+    "user information": "User Information",
+    "user information name": "Name",
+    "user information email": "Email",
+    "user information role": "Role",
+    "user information state": "Status",
+    "user collections": "My Collections",
+    "admin tag control": "Tags",
+    "admin topic control": "Topics",
+
+    "create collections back btn": "Back",
+    "create collections create btn": "Create New Collection",
+    "create collections choose img": "Choose an image",
+    "create collections modal name": "Name",
+    "create collections modal description": "Description",
+    "create collections modal btn": "Add",
+    "create collections topic": "Topic",
+    "create collections name": "Name",
+    "create collections description": "Description",
+
+    "create tags back": "Back",
+    "create tags create": "Create New Tag",
+    "create tags name": "Name",
+    "create tags modal btn": "Add",
+
+    "create topic back": "Back",
+    "create topic create": "Create New Topic",
+    "create topic name": "Name",
+    "create topic modal btn": "Add",
+
+    "choose a language": "Choose a language",
+    "english language": "English",
+    "uzbek language": "Uzbek",
+
+    "login page login": "Log In",
+    "login page email": "Email",
+    "login page password": "Password",
+    "login page question": "Don't you have an account?",
+    "login page singup": "Sign Up",
+
+    
+    "signup page signup": "Sign Up",
+    "signup page name": "Name",
+    "signup page email": "Email",
+    "signup page password": "Password",
+    "signup page question": "Do you have an account?",
+    "signup page login": "Log In"
+
+
+
+
+
+
+
+
+
+
+
+
+}

@@ -9,10 +9,15 @@ import { UserContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+import { useTranslation } from 'react-i18next';
+
+
 const CabinetCreateTopics = () => {
     const [modal, setModal] = useState(false);
     const accessToken = window.localStorage.getItem('accessToken');
     const { topics, getTopics } = useContext(UserContext);
+    const { t, i18n } = useTranslation();
+
 
     const sendCreatedTopic = async (e) => {
         e.preventDefault();
@@ -63,11 +68,12 @@ const CabinetCreateTopics = () => {
                     <Link to='/personalCabinet'>
                         <button className='btn btn-primary mx-3'>
                             <ArrowBackIcon />
-                            Back
+                            
+                            {t('create topics back')}
                         </button>
                     </Link>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
-                        Create New Topic
+                    {t('create topics create')}
                     </button>
                 </div>
             </div>
@@ -84,7 +90,7 @@ const CabinetCreateTopics = () => {
                             <input
                                 type='text'
                                 name='name'
-                                placeholder='Name'
+                                placeholder={t('create topics name')}
                                 required
                                 className='create-topics__form-input'
                             />
@@ -92,7 +98,7 @@ const CabinetCreateTopics = () => {
                         <div className='wrapper'>
                             <input
                                 type='submit'
-                                value='Add'
+                                value={t('create topics modal btn')}
                                 onClick={() =>
                                     setTimeout(() => {
                                         setModal(false);
@@ -110,7 +116,7 @@ const CabinetCreateTopics = () => {
                     return (
                         <div className='create-topics__item' key={id}>
                             <div className='create-topics__item-name'>
-                                <span>Name:</span>
+                                <span>{t('create topics name')}:</span>
                                 <p>{name}</p>
                             </div>
                             <div className='create-topics__item-actions'>

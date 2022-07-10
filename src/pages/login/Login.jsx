@@ -5,8 +5,13 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './login.scss';
 import axios from 'axios';
 
+import { useTranslation } from 'react-i18next';
+
+
 const Login = () => {
     const navigate = useNavigate();
+    const {t, i18n} = useTranslation();
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,13 +36,13 @@ const Login = () => {
     return (
         <div className='login-page'>
             <form className='login-page__form' onSubmit={handleSubmit}>
-                <h1 className='login-page__title mt-5'>Log In</h1>
+                <h1 className='login-page__title mt-5'>{t('login page login')}</h1>
                 <div className='mt-4'>
-                    <label htmlFor='email'>Email</label>
+                    <label htmlFor='email'>{t('login page email')}</label>
                     <input
                         type='email'
                         name='email'
-                        placeholder='Email'
+                        placeholder={t('login page email')}
                         required
                         minLength={1}
                         className='login-page__input form-control'
@@ -45,21 +50,21 @@ const Login = () => {
                 </div>
 
                 <div className='mt-4'>
-                    <label htmlFor='password'>Password</label>
+                    <label htmlFor='password'>{t('login page password')}</label>
                     <input
                         type='password'
                         name='password'
-                        placeholder='Password'
+                        placeholder={t('login page password')}
                         required
                         minLength={1}
                         className='login-page__input form-control'
                     />
                 </div>
 
-                <input type='submit' value='Log In' className='login-page__submit btn btn-primary mt-4' />
+                <input type='submit' value={t('login page login')} className='login-page__submit btn btn-primary mt-4' />
                 <div className='login-page__link-wrapper mt-4'>
-                    <p className='login-page__link'>Don't you have an account?</p>
-                    <Link to='/register'>Sign up</Link>
+                    <p className='login-page__link'>{t('login page question')}</p>
+                    <Link to='/register'>{t('login page singup')}</Link>
                 </div>
             </form>
         </div>

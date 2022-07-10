@@ -11,6 +11,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
+
 const CabinetCreateCollections = () => {
     const [file, setFile] = useState('');
     const [name, setName] = useState('');
@@ -18,6 +20,7 @@ const CabinetCreateCollections = () => {
     const [description, setDescription] = useState('');
     const [modal, setModal] = useState(false);
 
+    const { t, i18n } = useTranslation();
     const { oneUser, topics, ownCollections, getAllCollections } = useContext(UserContext);
     const userId = oneUser.id;
 
@@ -45,7 +48,6 @@ const CabinetCreateCollections = () => {
                 },
             });
 
-            
             const res2 = await axios.post(
                 `http://192.168.43.127:8080/api/collection/add/${userId}`,
                 {
@@ -59,13 +61,13 @@ const CabinetCreateCollections = () => {
                         Authorization: accessToken,
                     },
                 },
-                );
-                console.log(res2.data.data);
-            } catch (err) {
-                console.log(err);
-            }
-            getAllCollections();
-            window.location.reload();
+            );
+            console.log(res2.data.data);
+        } catch (err) {
+            console.log(err);
+        }
+        getAllCollections();
+        window.location.reload();
     };
 
     const handleDelete = async (e, id) => {
@@ -76,12 +78,12 @@ const CabinetCreateCollections = () => {
                     Authorization: accessToken,
                 },
             });
-            getAllCollections() 
+            getAllCollections();
             console.log(res.data);
         } catch (err) {
             console.log(err);
         }
-        window.location.reload()
+        window.location.reload();
     };
 
     return (
@@ -91,11 +93,11 @@ const CabinetCreateCollections = () => {
                     <Link to='/personalCabinet'>
                         <button className='btn btn-primary mx-3'>
                             <ArrowBackIcon />
-                            Back
+                            {t('create collections back btn')}
                         </button>
                     </Link>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
-                        Create New Collection
+                        {t('create collections create btn')}
                     </button>
                 </div>
             </div>
@@ -146,7 +148,8 @@ const CabinetCreateCollections = () => {
                                 />
 
                                 <label htmlFor='file'>
-                                    Choose an Image: <DriveFileMoveIcon className='label-icon' />
+                                    {t('create collections choose img')}
+                                    : <DriveFileMoveIcon className='label-icon' />
                                 </label>
                                 <input
                                     style={{ display: 'none' }}
@@ -163,7 +166,7 @@ const CabinetCreateCollections = () => {
                                     type='text'
                                     name='name'
                                     id='name'
-                                    placeholder='Name'
+                                    placeholder={t('create collections modal name')}
                                     required
                                     className='cabinet2-main__form-input'
                                     onChange={(e) => setName(e.target.value)}
@@ -174,7 +177,7 @@ const CabinetCreateCollections = () => {
                                     type='text'
                                     name='description'
                                     id='description'
-                                    placeholder='Description'
+                                    placeholder={t('create collections modal description')}
                                     required
                                     className='cabinet2-main__form-input'
                                     onChange={(e) => setDescription(e.target.value)}
@@ -189,7 +192,7 @@ const CabinetCreateCollections = () => {
                                         }, [500])
                                     }
                                 >
-                                    Add
+                                    {t('create collections modal btn')}
                                 </button>
                             </div>
                         </form>
@@ -201,10 +204,10 @@ const CabinetCreateCollections = () => {
                     const { id, topic, name, description, imageUrl } = ownCollection;
                     return (
                         <article className='ownCollection-card mt-3' key={id}>
-                            <h5 style={{ textDecoration: 'none' }}>Topic: {topic}</h5>
-                            <img src={imageUrl} alt={name} />
-                            <h4>Name: {name}</h4>
-                            <p>Description: {description}</p>
+                            <h5 style={{ textDecoration: 'none' }}>{t('create collections topic')}: {topic}</h5>
+                            <img src={imageUrl} alt={t('create collections name')} />
+                            <h4>{t('create collections name')}: {name}</h4>
+                            <p>{t('create collections description')}: {description}</p>
                             <div className='ownCollections__item-actions'>
                                 <EditIcon className='edit-tag' />
                                 <DeleteIcon className='delete-tag' onClick={(e) => handleDelete(e, id)} />

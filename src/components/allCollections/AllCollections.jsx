@@ -4,10 +4,13 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 import './allCollections.scss';
 
+import { useTranslation } from 'react-i18next';
+
 const AllCollections = () => {
     const [search, setSearch] = useState('');
     const { allCollections, getItems } = useContext(UserContext);
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation();
 
     const accessToken = localStorage.getItem('accessToken');
 
@@ -31,11 +34,11 @@ const AllCollections = () => {
         <main>
             <section className='followers'>
                 <div>
-                    <div className='topics-container'>
+                    <div className='followers-container'>
                         <input
                             name='topics'
-                            placeholder='Search by Topics'
-                            className='topics-container__select'
+                            placeholder={t('allCollections search')}
+                            className='followers-container__select'
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
@@ -58,10 +61,10 @@ const AllCollections = () => {
                                         style={{ cursor: 'pointer' }}
                                         onClick={(e) => handleClickPost(e, id)}
                                     >
-                                        <h5 style={{ textDecoration: 'none' }}>Topic: {topic}</h5>
-                                        <img src={imageUrl} alt={name} />
-                                        <h4>Name: {name}</h4>
-                                        <p>Description: {description}</p>
+                                        <h5 style={{ textDecoration: 'none' }}>{t('allCollections topic')}: {topic}</h5>
+                                        <img src={imageUrl} alt={t('allCollections name')} />
+                                        <h4>{t('allCollections name')}: {name}</h4>
+                                        <p>{t('allCollections description')}: {description}</p>
                                     </article>
                                 );
                             })}

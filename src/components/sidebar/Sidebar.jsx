@@ -11,8 +11,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LanguageIcon from '@mui/icons-material/Language';
 import PaletteIcon from '@mui/icons-material/Palette';
 
+import { useTranslation } from 'react-i18next';
+
 const Sidebar = () => {
     const { activeMenu } = useStateContext();
+
+    const { t, i18n } = useTranslation();
 
     return (
         <>
@@ -21,37 +25,37 @@ const Sidebar = () => {
                     <div className='sidebar-top'>
                         <Link to='/' style={{ textDecoration: 'none' }}>
                             <h1 className='sidebar-logo'>
-                                Personal <sub>Collections</sub>
+                                {t('logo personal')} <sub>{t('logo collections')}</sub>
                             </h1>
                         </Link>
                     </div>
                     <div className='sidebar-center'>
                         <ul className='sidebar-dashboard'>
-                            <p className='sidebar-dashboard__title'>Main</p>
+                            <p className='sidebar-dashboard__title'>{t('sidebar main')}</p>
                             <Link to='/allCollections' style={{ textDecoration: 'none' }}>
                                 <li className='sidebar-dashboard__item'>
                                     <CollectionsIcon className='sidebar-dashboard__icon' />
-                                    Collections
+                                    {t('sidebar main collections')}
                                 </li>
                             </Link>
                             <Link to='/allUsers' style={{ textDecoration: 'none' }}>
                                 <li className='sidebar-dashboard__item'>
                                     <GroupIcon className='sidebar-dashboard__icon' />
-                                    Users
+                                    {t('sidebar main users')}
                                 </li>
                             </Link>
                             <Link to='/tags' style={{ textDecoration: 'none' }}>
                                 <li className='sidebar-dashboard__item'>
                                     <TagIcon className='sidebar-dashboard__icon' />
-                                    Tags
+                                    {t('sidebar main tags')}
                                 </li>
                             </Link>
 
-                            <p className='sidebar-dashboard__title'>User</p>
+                            <p className='sidebar-dashboard__title'>{t('sidebar user')}</p>
                             <Link to='/personalCabinet' style={{ textDecoration: 'none' }}>
                                 <li className='sidebar-dashboard__item'>
                                     <PersonIcon className='sidebar-dashboard__icon' />
-                                    Personal Cabinet
+                                    {t('sidebar user personal cabinet')}
                                 </li>
                             </Link>
                             <Link
@@ -64,21 +68,21 @@ const Sidebar = () => {
                             >
                                 <li className='sidebar-dashboard__item'>
                                     <LogoutIcon className='sidebar-dashboard__icon' />
-                                    Logout
+                                    {t('sidebar user logout')}
                                 </li>
                             </Link>
 
-                            <p className='sidebar-dashboard__title'>Settings</p>
+                            <p className='sidebar-dashboard__title'>{t('sidebar settings')}</p>
                             <Link to='/language' style={{ textDecoration: 'none' }}>
                                 <li className='sidebar-dashboard__item'>
                                     <LanguageIcon className='sidebar-dashboard__icon' />
-                                    Language
+                                    {t('sidebar settings language')}
                                 </li>
                             </Link>
                             <Link to='/theme' style={{ textDecoration: 'none' }}>
                                 <li className='sidebar-dashboard__item'>
                                     <PaletteIcon className='sidebar-dashboard__icon' />
-                                    Theme
+                                    {t('sidebar settings theme')}
                                 </li>
                             </Link>
                         </ul>

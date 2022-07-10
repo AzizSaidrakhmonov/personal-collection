@@ -11,10 +11,13 @@ import e from 'cors';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+import { useTranslation } from 'react-i18next';
+
 const CollectionItems = () => {
     const { oneUser, tags, fields, items, getItems, getSingleItem } = useContext(UserContext);
 
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation();
 
     const [modal, setModal] = useState(false);
     const [itemName, setItemName] = useState('');
@@ -99,7 +102,7 @@ const CollectionItems = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.get(`http://192.168.43.127:8080/api/item/get/${collectionId}/${itemId}`, {
+            const res = await axios.get(`http://192.168.43.127:8080/api/item/get/${oneUser.id}/${collectionId}/${itemId}`, {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -125,7 +128,7 @@ const CollectionItems = () => {
                     },
                 },
             );
-                getItems()
+            getItems();
             console.log(res.data);
         } catch (err) {
             console.log(err);
@@ -144,14 +147,14 @@ const CollectionItems = () => {
                     <Link to='/allCollections'>
                         <button className='btn btn-primary mx-3'>
                             <ArrowBackIcon />
-                            Back
+                            {t('items back btn')}
                         </button>
                     </Link>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
-                        Create New Item
+                        {t('items create btn')}
                     </button>
                     <Link to='/fields'>
-                        <button className='btn btn-success mx-3'>Fields</button>
+                        <button className='btn btn-success mx-3'>{t('items field btn')}</button>
                     </Link>
                 </div>
             </div>
@@ -168,7 +171,7 @@ const CollectionItems = () => {
                             <input
                                 type='text'
                                 name='name'
-                                placeholder='Name'
+                                placeholder={t('items modal name')}
                                 required
                                 className='create-items__form-input'
                                 onChange={(e) => setItemName(e.target.value)}
@@ -212,11 +215,11 @@ const CollectionItems = () => {
 
                         <div className='button-section'>
                             <button className='btn btn-primary add' type='button' onClick={() => addFormFields()}>
-                                + Add More Tags
+                                + {t('items modal add more tags')}
                             </button>
                         </div>
 
-                        <h4>Added fields:</h4>
+                        <h4>{t('items modal added fields')}:</h4>
 
                         <div className='wrapper-fields'>
                             {fields.map((field, i) => {
@@ -266,7 +269,7 @@ const CollectionItems = () => {
                                                     name='data'
                                                     id='text'
                                                     required
-                                                    className='collection-items__form-input '
+                                                    className='collection-items__form-input textarea'
                                                     onChange={(e) => handleFieldChange(i, e)}
                                                 ></textarea>
                                             </div>
@@ -311,7 +314,7 @@ const CollectionItems = () => {
                         <div className='wrapper create-items__form-btn'>
                             <input
                                 type='submit'
-                                value='Add'
+                                value={t('items modal add btn')}
                                 required
                                 className='create-items__inner-btn btn btn-primary mt-3'
                                 onClick={() =>
@@ -326,14 +329,14 @@ const CollectionItems = () => {
             )}
 
             <div className='create-items__main'>
-                <h2 className='create-items__main-header'>All Items</h2>
+                <h2 className='create-items__main-header'>{t('items all')}</h2>
                 <div className='create-items__inner'>
                     {items.map((item) => {
                         const { id, name } = item;
                         return (
                             <div className='create-items__item' key={id}>
                                 <div className='create-items__item-name'>
-                                    <span>Name:</span>
+                                    <span>{t('items all name')}:</span>
                                     <p>{name}</p>
                                 </div>
                                 <div className='create-items__item-actions'>

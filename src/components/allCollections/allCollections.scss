@@ -1,13 +1,6 @@
 $box-shadow: 0 4px 14px #00000042;
 $white-color: #ffffff;
 
-*,
-::after,
-::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 .container {
     display: flex;
@@ -15,7 +8,7 @@ $white-color: #ffffff;
     align-items: center;
     gap: 20px;
     flex-wrap: wrap;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .card {
@@ -30,49 +23,40 @@ $white-color: #ffffff;
         transform: scale(1.03);
         transition: all .3s linear;
     }
-}
 
-.card img {
-    width: 250px;
-    height: 200px;
-    object-fit: cover;
-    margin-bottom: 0.75rem;
-}
+    img {
+        width: 300px;
+        height: 200px;
+        object-fit: cover;
+        margin-bottom: 0.75rem;
+    }
 
-.card h4 {
-    margin-bottom: 1.5rem;
-    font-size: 0.85rem;
-    color: #888;
-}
-
-.btn-container {
-    margin-top: 60px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-
-.topics-container {
-    display: flex;
-}
-
-.topics-container__select {
-    border: none;
-    border-bottom: 2px solid #888;
-    padding: 2px 10px;
-    color: #888;
-    font-weight: 600;
-    box-shadow: $box-shadow;
-
-
-    &:focus {
-        outline: none;
+    h4 {
+        font-size: 24px;
     }
 }
 
-.topics-container__label {
-    font-size: 20px;
-    font-weight: 600;
-    margin-right: 10px;
+
+.followers-container {
+    display: flex;
+
+    &__select {
+        border: none;
+        border-bottom: 2px solid #888;
+        padding: 2px 10px;
+        color: #888;
+        font-weight: 600;
+        box-shadow: $box-shadow;
+
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__label {
+        font-size: 20px;
+        font-weight: 600;
+        margin-right: 10px;
+    }
 }

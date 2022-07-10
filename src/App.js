@@ -14,6 +14,7 @@ import Tags from './components/tags/Tags';
 import Collections from './components/collectionItems/CollectionItems';
 import Fields from './components/fields/Fields';
 import SingleItem from './components/singleItem/SingleItem';
+import Language from './components/Language/Language';
 
 const App = () => {
     return (
@@ -32,6 +33,7 @@ const App = () => {
                         <Route path='/personalCabinet/createCollections' element={<CabinetCreateCollections />} />
                         <Route path='/personalCabinet/createTags' element={<CabinetCreateTags />} />
                         <Route path='/personalCabinet/createTopics' element={<CabinetCreateTopics />} />
+                        <Route path='/language' element={<Language/>}/>
                     </Route>
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />

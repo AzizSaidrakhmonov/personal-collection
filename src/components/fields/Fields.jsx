@@ -9,11 +9,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
+
 const Fields = () => {
     const [name, setName] = useState('');
     const [type, setType] = useState('STRING');
     const [modal, setModal] = useState(false);
     const { oneUser, fields, getFields } = useContext(UserContext);
+
+    const { t, i18n } = useTranslation();
 
     const accessToken = localStorage.getItem('accessToken');
     const collectionId = localStorage.getItem('id');
@@ -51,7 +55,7 @@ const Fields = () => {
                     },
                 },
             );
-                getFields()
+            getFields();
             console.log(res.data);
         } catch (err) {
             console.log(err);
@@ -65,11 +69,11 @@ const Fields = () => {
                     <Link to='/allCollections/items'>
                         <button className='btn btn-primary mx-3'>
                             <ArrowBackIcon />
-                            Back
+                            {t('fields back btn')}
                         </button>
                     </Link>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
-                        Create New Field
+                        {t('fields create btn')}
                     </button>
                 </div>
             </div>
@@ -77,7 +81,7 @@ const Fields = () => {
                 <div className='create-fields__form'>
                     <form onSubmit={handleField}>
                         <div className='create-fields__header'>
-                            <h4>Fields</h4>
+                            <h4>{t('fields modal title')}</h4>
                             <CloseIcon
                                 onClick={() => {
                                     setModal(false);
@@ -90,7 +94,7 @@ const Fields = () => {
                                 <input
                                     type='text'
                                     name='name'
-                                    placeholder='Name'
+                                    placeholder={t('fields modal name')}
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
@@ -124,7 +128,7 @@ const Fields = () => {
                                     }, 500);
                                 }}
                             >
-                                Submit
+                                {t('fields modal add')}
                             </button>
                         </div>
                     </form>
@@ -138,11 +142,11 @@ const Fields = () => {
                     return (
                         <div className='single-field' key={id}>
                             <div className='single-field__name'>
-                                <span>Name:</span>
+                                <span>{t('fields name')}:</span>
                                 <p>{name}</p>
                             </div>
                             <div className='single-field__type'>
-                                <span>Type:</span>
+                                <span>{t('fields type')}:</span>
                                 <p>{type}</p>
                             </div>
                             <div className='single-field__item-actions'>

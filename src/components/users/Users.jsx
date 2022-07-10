@@ -15,7 +15,7 @@ const Users = () => {
     const { oneUser, users } = useContext(UserContext);
 
     const navigate = useNavigate();
-    const accessToken = sessionStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');
 
     useEffect(() => {
         selected.length === users?.length ? setSelectText('Remove All') : setSelectText('Select All');
@@ -39,93 +39,96 @@ const Users = () => {
         }
     };
 
-    // HANDLE BLOCK
-    const handleBlock = async () => {
-        try {
-            const res = await axios.put(
-                'http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/admin/change_state',
+    const handleDelete = () => {
+        const payload = {
+            userListId: selected,
+            state: 2,
+        };
+
+        axios
+            .delete(`http://192.168.43.127:8080/api/admin/change_state`, payload, {
+                headers: {
+                    Authorization: accessToken,
+                },
+            })
+            .then((res) => {
+                console.log(res.data)
+                if (res.data.statusCode === 200) {
+                    setToggle(!toggle);
+                } else if (res.data.statusCode === 401 || res.data.statusCode === 403) {
+                    alert('token is invalid');
+                    navigate('/login');
+                } else if (res.data.statusCode === 400) {
+                    alert(res.data.message);
+                    navigate('/login');
+                }
+            });
+    };
+    const handleBlock = () => {
+        const payload = {
+            userListId: selected,
+            state: 0,
+        };
+
+        axios
+            .put(`http://192.168.43.127:8080/api/admin/change_state`, payload, {
+                headers: {
+                    Authorization: accessToken,
+                },
+            })
+            .then((res) => {
+                console.log(res.data.data)
+                if (res.data.statusCode === 200) {
+                    setToggle(!toggle);
+                } else if (res.data.statusCode === 401 || res.data.statusCode === 403) {
+                    alert('token is invalid');
+                    navigate('/login');
+                } else if (res.data.statusCode === 400) {
+                    alert(res.data.message);
+                    navigate('/login');
+                }
+            });
+    };
+
+    const handleUnblock = () => {
+        const payload = {
+            userListId: selected,
+            state: 1,
+        };
+
+        axios
+            .put(
+                `http://192.168.43.127:8080/api/admin/change_state`,
+                payload,
                 {
-                    arrId: selected, // selected users will block
-                    state: false,
+                    arrId: selected,
+                    status: true,
                 },
                 {
                     headers: {
-                        accessToken: `${accessToken}`,
+                        Authorization: accessToken,
                     },
                 },
-            );
-            console.log(res.data.statusCode);
-            if (res.data.statusCode === 200) {
-                setToggle(!toggle);
-            } else if (res.data.statusCode === 401) {
-                alert('Token is invalid');
-                navigate('/login');
-            } else if (res.data.statusCode === 400) {
-                alert(res.data.message);
-                navigate('/login');
-            }
-        } catch (err) {
-            console.log(err);
-        }
+            )
+            .then((res) => {
+                if (res.data.status === 200) {
+                    setToggle(!toggle);
+                } else if (res.data.status === 401) {
+                    alert('token is invalid');
+                    navigate('/');
+                } else if (res.data.status === 400) {
+                    alert(res.data.message);
+                    navigate('/');
+                }
+            });
     };
-    //     //  HANDLE UNBLOCK
-
-    //     const handleUnblock = () => {
-    //         axios
-    //             .put(``, {
-    //                 arrId: selected, //selected users will unblock
-    //                 statusCode: true,
-    //             },
-    //             {
-    //                 headers: {
-    //                     'accessToken': `${accessToken}`
-    //                 }
-    //             }
-    //             )
-    //             .then(res => {
-    //                 if(res.data.statusCode === 200){
-    //                     //sth
-    //                 } else if(res.data.statusCode === 401){
-    //                     alert('Token is invalid');
-    //                     navigate('/');
-    //                 } else if(res.data.statusCode === 400){
-    //                     alert(res.data.message);
-    //                     navigate('/');
-    //                 }
-    //             })
-    //     }
-
-    //    // HANDLE DELETE
-
-    //    const handleDelete = () => {
-    //         axios.
-    //             delete(``, {  // your api here
-    //                 headers: {
-    //                     'accessToken': `${accessToken}`
-    //                 }
-    //             }
-    //             )
-    //             .then(res => {
-    //                 if(res.data.statusCode === 200){
-    //                     //sth
-    //                 } else if(res.data.statusCode === 401){
-    //                     alert('Token is invalid')
-    //                     navigate('/')
-    //                 } else if(res.data.statusCode === 400){
-    //                     alert(res.data.message);
-    //                     navigate('/')
-    //                 }
-    //             })
-    //    }
-
-    //
 
     return (
         <div className='users'>
             <div className='actions'>
                 <input
                     type='text'
-                    placeholder='search by name'
+                    placeholder='Search by Name'
                     onChange={(e) => setSearch(e.target.value)}
                     value={search}
                 />
@@ -133,8 +136,12 @@ const Users = () => {
                     <span className='action-btn btn btn-danger' onClick={handleBlock}>
                         Block
                     </span>
-                    <span className='action-btn btn btn-success'>Unblock</span>
-                    <span className='action-btn btn btn-warning'>Delete</span>
+                    <span className='action-btn btn btn-success' onClick={handleUnblock}>
+                        Unblock
+                    </span>
+                    <span className='action-btn btn btn-warning' onClick={handleDelete}>
+                        Delete
+                    </span>
                     <span className='action-btn btn btn-info'>Admin</span>
                     <span className='action-btn btn btn-dark'>User</span>
                 </div>
@@ -193,7 +200,7 @@ const Users = () => {
                                         <td>{email}</td>
                                         <td>{role}</td>
                                         <td className={`${state ? 'active' : 'block'}`}>
-                                            {e.state ? 'Active' : 'Blocked'}
+                                            {e.state === 1 ? 'Active' : e.state === 0 ? 'Blocked' : e.state}
                                         </td>
                                         <td>
                                             <button className='btn btn-primary'>view</button>

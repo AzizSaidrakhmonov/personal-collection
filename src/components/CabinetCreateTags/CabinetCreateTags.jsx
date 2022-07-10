@@ -6,9 +6,11 @@ import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const CabinetCreateTags = () => {
-    const { tags } = useContext(UserContext);
+    const { tags, getTags } = useContext(UserContext);
     const [modal, setModal] = useState(false);
     const accessToken = localStorage.getItem('accessToken');
 
@@ -19,7 +21,7 @@ const CabinetCreateTags = () => {
             const { name } = e.target.elements;
 
             const res = await axios.post(
-                'http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/tag/add',
+                'http://192.168.43.127:8080/api/tag/add',
                 {
                     name: name.value,
                 },
@@ -29,8 +31,25 @@ const CabinetCreateTags = () => {
                     },
                 },
             );
+            getTags();
+            console.log(res);
         } catch (err) {
             console.error(err);
+        }
+    };
+
+    const handleDelete = async (e, id) => {
+        console.log(id);
+        try {
+            const res = await axios.delete(`http://192.168.43.127:8080/api/tag/delete/${id}`, {
+                headers: {
+                    Authorization: accessToken,
+                },
+            });
+            getTags();
+            console.log(res.data);
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -44,6 +63,12 @@ const CabinetCreateTags = () => {
         <div className='create-tags'>
             <div className='create-tags__top'>
                 <div className='create-tags__top-btn'>
+                    <Link to='/personalCabinet'>
+                        <button className='btn btn-primary mx-3'>
+                            <ArrowBackIcon />
+                            Back
+                        </button>
+                    </Link>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
                         Create New Tag
                     </button>
@@ -90,18 +115,14 @@ const CabinetCreateTags = () => {
                 {tags.map((tag) => {
                     const { id, name } = tag;
                     return (
-                        <div className='create-tags__item'>
-                            <div className='create-tags__item-id'>
-                                <span>Id:</span>
-                                <p>{id}</p>
-                            </div>
+                        <div className='create-tags__item' key={id}>
                             <div className='create-tags__item-name'>
                                 <span>Name:</span>
                                 <p>{name}</p>
                             </div>
                             <div className='create-tags__item-actions'>
                                 <EditIcon className='edit-tag' />
-                                <DeleteIcon className='delete-tag' />
+                                <DeleteIcon className='delete-tag' onClick={(e) => handleDelete(e, id)} />
                             </div>
                         </div>
                     );

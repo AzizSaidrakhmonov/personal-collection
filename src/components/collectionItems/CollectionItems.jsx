@@ -8,9 +8,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import e from 'cors';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const CollectionItems = () => {
-    const { oneUser, tags, fields, items } = useContext(UserContext);
+    const { oneUser, tags, fields, items, getItems, getSingleItem } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -27,10 +29,9 @@ const CollectionItems = () => {
         }
     }, [tags]);
 
-
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    const [formValues, setFormValues] = useState([{ name: ''}]);
+    const [formValues, setFormValues] = useState([{ name: 'expensive' }]);
 
     let handleChange = (i, e) => {
         let newFormValues = [...formValues];
@@ -39,7 +40,7 @@ const CollectionItems = () => {
     };
 
     let addFormFields = () => {
-        setFormValues([...formValues, { name: '' }]);
+        setFormValues([...formValues, { name: 'expensive' }]);
     };
 
     let removeFormFields = (i) => {
@@ -64,7 +65,7 @@ const CollectionItems = () => {
         setFieldValues(newFieldValues);
     };
 
-    console.log(formValues)
+    // console.log(formValues)
 
     //////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,7 +80,7 @@ const CollectionItems = () => {
 
         try {
             const res = await axios.post(
-                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/item/add/${oneUser.id}/${collectionId}`,
+                `http://192.168.43.127:8080/api/item/add/${oneUser.id}/${collectionId}`,
                 payload,
                 {
                     headers: {
@@ -87,24 +88,48 @@ const CollectionItems = () => {
                     },
                 },
             );
+            getItems();
+            console.log(res.data);
         } catch (err) {
             console.error(err);
         }
     };
 
-   
     const handleCreatedCollectionItem = async (e, itemId) => {
         e.preventDefault();
 
-        const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/item/get/${collectionId}/${itemId}`, {
-            headers: {
-                Authorization: accessToken,
-            },
-        });
+        try {
+            const res = await axios.get(`http://192.168.43.127:8080/api/item/get/${collectionId}/${itemId}`, {
+                headers: {
+                    Authorization: accessToken,
+                },
+            });
+            getSingleItem();
+        } catch (err) {
+            console.log(err);
+        }
 
         localStorage.setItem('itemId', itemId);
-
         navigate('/allCollections/items/item');
+        window.location.reload();
+    };
+
+    const handleDelete = async (e, id) => {
+        console.log(id);
+        try {
+            const res = await axios.delete(
+                `http://192.168.43.127:8080/api/item/delete/${oneUser.id}/${collectionId}/${id}`,
+                {
+                    headers: {
+                        Authorization: accessToken,
+                    },
+                },
+            );
+                getItems()
+            console.log(res.data);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     useEffect(() => {
@@ -116,6 +141,12 @@ const CollectionItems = () => {
         <div className='create-items'>
             <div className='create-items__top'>
                 <div className='create-items__top-btn'>
+                    <Link to='/allCollections'>
+                        <button className='btn btn-primary mx-3'>
+                            <ArrowBackIcon />
+                            Back
+                        </button>
+                    </Link>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
                         Create New Item
                     </button>
@@ -152,8 +183,7 @@ const CollectionItems = () => {
                                     className='collection-items__form-input '
                                     style={{ cursor: 'pointer' }}
                                 >
-                                    {
-                                    tags.map((tag) => {
+                                    {tags.map((tag) => {
                                         const { id, name } = tag;
                                         return (
                                             <option
@@ -211,7 +241,7 @@ const CollectionItems = () => {
 
                                     case 'INTEGER':
                                         return (
-                                            <div className='field-type'>
+                                            <div className='field-type' key={id}>
                                                 <label id='number' className='field-type__label'>
                                                     {name}:
                                                 </label>
@@ -227,7 +257,7 @@ const CollectionItems = () => {
                                         );
                                     case 'TEXT':
                                         return (
-                                            <div className='field-type'>
+                                            <div className='field-type' key={id}>
                                                 <label id='text' className='field-type__label'>
                                                     {name}:
                                                 </label>
@@ -243,7 +273,7 @@ const CollectionItems = () => {
                                         );
                                     case 'DATE':
                                         return (
-                                            <div className='field-type'>
+                                            <div className='field-type' key={id}>
                                                 <label id='date' className='field-type__label'>
                                                     {name}:
                                                 </label>
@@ -259,7 +289,7 @@ const CollectionItems = () => {
                                         );
                                     case 'BOOLEAN':
                                         return (
-                                            <div className='field-type'>
+                                            <div className='field-type' key={id}>
                                                 <label id='checkbox' className='field-type__label'>
                                                     {name}:
                                                 </label>
@@ -284,6 +314,11 @@ const CollectionItems = () => {
                                 value='Add'
                                 required
                                 className='create-items__inner-btn btn btn-primary mt-3'
+                                onClick={() =>
+                                    setTimeout(() => {
+                                        setModal(false);
+                                    }, 500)
+                                }
                             />
                         </div>
                     </form>
@@ -296,18 +331,18 @@ const CollectionItems = () => {
                     {items.map((item) => {
                         const { id, name } = item;
                         return (
-                            <div className='create-items__item' 
-                                key={id} 
-                                onClick={(e) => handleCreatedCollectionItem(e, id)}
-                                style={{ cursor: 'pointer' }}
-                            >
+                            <div className='create-items__item' key={id}>
                                 <div className='create-items__item-name'>
                                     <span>Name:</span>
                                     <p>{name}</p>
                                 </div>
                                 <div className='create-items__item-actions'>
+                                    <RemoveRedEyeIcon
+                                        className='preview-item'
+                                        onClick={(e) => handleCreatedCollectionItem(e, id)}
+                                    />
                                     <EditIcon className='edit-item' />
-                                    <DeleteIcon className='delete-item' />
+                                    <DeleteIcon className='delete-item' onClick={(e) => handleDelete(e, id)} />
                                 </div>
                             </div>
                         );

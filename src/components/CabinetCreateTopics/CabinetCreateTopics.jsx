@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './cabinetCreateTopics.scss';
 import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { UserContext } from '../../context/UserContext';
+import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const CabinetCreateTopics = () => {
     const [modal, setModal] = useState(false);
     const accessToken = window.localStorage.getItem('accessToken');
+    const { topics, getTopics } = useContext(UserContext);
 
     const sendCreatedTopic = async (e) => {
         e.preventDefault();
@@ -15,7 +21,7 @@ const CabinetCreateTopics = () => {
 
         try {
             const res = await axios.post(
-                'http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/topic/add',
+                'http://192.168.43.127:8080/api/topic/add',
                 {
                     name: name.value,
                 },
@@ -25,7 +31,22 @@ const CabinetCreateTopics = () => {
                     },
                 },
             );
-            console.log(res);
+            getTopics();
+            console.log(res.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const handleDelete = async (e, id) => {
+        console.log(id);
+        try {
+            const res = await axios.delete(`http://192.168.43.127:8080/api/topic/delete/${id}`, {
+                headers: {
+                    Authorization: accessToken,
+                },
+            });
+            getTopics();
         } catch (err) {
             console.log(err);
         }
@@ -39,6 +60,12 @@ const CabinetCreateTopics = () => {
         <div className='create-topics'>
             <div className='create-topics__top'>
                 <div className='create-topics__top-btn'>
+                    <Link to='/personalCabinet'>
+                        <button className='btn btn-primary mx-3'>
+                            <ArrowBackIcon />
+                            Back
+                        </button>
+                    </Link>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
                         Create New Topic
                     </button>
@@ -77,6 +104,23 @@ const CabinetCreateTopics = () => {
                     </form>
                 </div>
             )}
+            <div className='create-topics__main'>
+                {topics.map((topic) => {
+                    const { id, name } = topic;
+                    return (
+                        <div className='create-topics__item' key={id}>
+                            <div className='create-topics__item-name'>
+                                <span>Name:</span>
+                                <p>{name}</p>
+                            </div>
+                            <div className='create-topics__item-actions'>
+                                <EditIcon className='edit-topic' />
+                                <DeleteIcon className='delete-topic' onClick={(e) => handleDelete(e, id)} />
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 };

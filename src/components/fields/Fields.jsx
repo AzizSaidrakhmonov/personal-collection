@@ -6,13 +6,14 @@ import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link } from 'react-router-dom';
 
 const Fields = () => {
-
     const [name, setName] = useState('');
     const [type, setType] = useState('STRING');
     const [modal, setModal] = useState(false);
-    const { oneUser, fields } = useContext(UserContext);
+    const { oneUser, fields, getFields } = useContext(UserContext);
 
     const accessToken = localStorage.getItem('accessToken');
     const collectionId = localStorage.getItem('id');
@@ -22,7 +23,7 @@ const Fields = () => {
 
         try {
             const res = await axios.post(
-                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/field/add/${oneUser.id}/${collectionId}`,
+                `http://192.168.43.127:8080/api/field/add/${oneUser.id}/${collectionId}`,
                 {
                     name: name,
                     type: type,
@@ -33,6 +34,25 @@ const Fields = () => {
                     },
                 },
             );
+            getFields();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const handleDelete = async (e, id) => {
+        console.log(id);
+        try {
+            const res = await axios.delete(
+                `http://192.168.43.127:8080/api/field/delete/${oneUser.id}/${collectionId}/${id}`,
+                {
+                    headers: {
+                        Authorization: accessToken,
+                    },
+                },
+            );
+                getFields()
+            console.log(res.data);
         } catch (err) {
             console.log(err);
         }
@@ -42,6 +62,12 @@ const Fields = () => {
         <div className='create-fields'>
             <div className='create-fields__top'>
                 <div className='create-fields__top-btn'>
+                    <Link to='/allCollections/items'>
+                        <button className='btn btn-primary mx-3'>
+                            <ArrowBackIcon />
+                            Back
+                        </button>
+                    </Link>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
                         Create New Field
                     </button>
@@ -121,7 +147,7 @@ const Fields = () => {
                             </div>
                             <div className='single-field__item-actions'>
                                 <EditIcon className='edit-tag' />
-                                <DeleteIcon className='delete-tag' />
+                                <DeleteIcon className='delete-tag' onClick={(e) => handleDelete(e, id)} />
                             </div>
                         </div>
                     );

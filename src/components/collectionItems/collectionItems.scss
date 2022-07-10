@@ -130,12 +130,6 @@ $box-shadow: 0 2px 8px #00000042;
     padding: 10px 20px;
     flex: 2;
 
-    &:hover {
-        transition: all .3s linear;
-        transform: scale(1.03);
-        transition: all .3s linear;
-    }
-
     &-id,
     &-name,
     &-like {

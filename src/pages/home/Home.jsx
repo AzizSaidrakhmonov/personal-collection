@@ -15,6 +15,7 @@ const Home = () => {
     const [fields, setFields] = useState([]);
     const [items, setItems] = useState([]);
     const [singleItem, setSingleItem] = useState([]);
+    const [ownCollections, setOwnCollections] = useState([]);
 
     const userEmail = localStorage.getItem('email');
     const accessToken = localStorage.getItem('accessToken');
@@ -23,7 +24,7 @@ const Home = () => {
 
     const getAllUsers = async () => {
         try {
-            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/user/get_all_users', {
+            const res = await axios.get('http://192.168.43.127:8080/api/user/get_all_users', {
                 headers: {
                     accessToken: `${accessToken}`,
                 },
@@ -37,7 +38,7 @@ const Home = () => {
 
     const getOneUser = async () => {
         try {
-            const res2 = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/user/get/${userEmail}`, {
+            const res2 = await axios.get(`http://192.168.43.127:8080/api/user/get/${userEmail}`, {
                 headers: {
                     accessToken: `${accessToken}`,
                 },
@@ -51,7 +52,7 @@ const Home = () => {
 
     const getAllCollections = async () => {
         try {
-            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/collection/get_all', {
+            const res = await axios.get('http://192.168.43.127:8080/api/collection/get_all', {
                 headers: {
                     accessToken: `${accessToken}`,
                 },
@@ -60,11 +61,13 @@ const Home = () => {
         } catch (err) {
             console.log(err);
         }
+
     };
 
+    
     const getTopics = async () => {
         try {
-            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/topic/get_all', {
+            const res = await axios.get('http://192.168.43.127:8080/api/topic/get_all', {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -75,39 +78,60 @@ const Home = () => {
             console.error(err);
         }
     };
-
+    
     const getTags = async () => {
         try {
-            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/tag/get_all', {
+            const res = await axios.get('http://192.168.43.127:8080/api/tag/get_all', {
                 headers: {
                     Authorization: accessToken,
                 },
             });
-
+            
             setTags(res.data.data);
         } catch (err) {
             console.error(err);
         }
     };
-
+    
     localStorage.setItem('oneUserId', oneUser.id);
     const oneUserId = localStorage.getItem('oneUserId');
 
     useEffect(() => {
+        if(oneUser.length > 0){
+            setOneUser(oneUser.id)
+        }
+    }, [oneUser])
+    
+    useEffect(() => {
         if (oneUserId !== undefined) {
             getFields();
+            getOwnCollections();
         }
-    }, [oneUserId]);
-
+    },[oneUserId]);
+    
     const getFields = async () => {
         try {
-            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/field/get_all/${oneUserId}/${collectionId}`, {
+            const res = await axios.get(`http://192.168.43.127:8080/api/field/get_all/${oneUser.id}/${collectionId}`, {
                 headers: {
                     Authorization: accessToken,
                 },
             });
-
+            
             setFields(res.data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    
+    const getOwnCollections = async () => {
+        try {
+            const res = await axios.get(`http://192.168.43.127:8080/api/collection/get/${oneUser.id}`, {
+                headers: {
+                    Authorization: accessToken,
+                },
+            });
+            setOwnCollections(res.data.data);
+            console.log(res.data.data)
         } catch (err) {
             console.log(err);
         }
@@ -115,7 +139,7 @@ const Home = () => {
 
     const getItems = async () => {
         try{
-            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/item/get_all/${collectionId}`, {
+            const res = await axios.get(`http://192.168.43.127:8080/api/item/get_all/${collectionId}`, {
                 headers: {
                     Authorization: accessToken,
                 }
@@ -130,7 +154,7 @@ const Home = () => {
 
     const getSingleItem = async () => {
         try {
-            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8080/api/item/get/${collectionId}/${itemId}`, {
+            const res = await axios.get(`http://192.168.43.127:8080/api/item/get/${collectionId}/${itemId}`, {
                 headers: {
                     Authorization: accessToken
                 }
@@ -152,24 +176,36 @@ const Home = () => {
         getFields();
         getItems();
         getSingleItem();
+        getOwnCollections();
     }, []);
 
     return (
         <div className='home'>
             <Sidebar />
             <div className='home-container'>
+                
                 <Navbar />
                 <div className='home-collections'>
                     <UserContext.Provider
                         value={{
                             users: users,
+                            getAllUsers: getAllUsers,
                             oneUser: oneUser,
+                            getOneUser: getOneUser,
                             allCollections: allCollections,
+                            getAllCollections: getAllCollections,
                             topics: topics,
+                            getTopics: getTopics,
                             tags: tags,
+                            getTags: getTags,
                             fields: fields,
+                            getFields: getFields,
                             items: items,
+                            getItems: getItems,
                             singleItem: singleItem,
+                            getSingleItem: getSingleItem,
+                            ownCollections: ownCollections,
+                            getOwnCollections: getOwnCollections
                         }}
                     >
                         <Outlet />

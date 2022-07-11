@@ -1,4 +1,4 @@
-$box-shadow: 0 2px 8px #00000042;
+$box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
 
 .cabinet2-main {
     display: flex;
@@ -60,17 +60,16 @@ $box-shadow: 0 2px 8px #00000042;
     }
 }
 
-.ownCollection-card {
-    background: #fff;
-    padding: 10px 20px;
-    text-align: center;
-    border: none;
+.slick {
     box-shadow: $box-shadow;
+    background: #fff;
     border-radius: 5px;
+}
+
+.ownCollection-card {
+    padding: 20px 40px 50px 40px;
 
     img {
-        width: 300px;
-        height: 200px;
         object-fit: cover;
         margin-bottom: 0.75rem;
     }
@@ -80,6 +79,7 @@ $box-shadow: 0 2px 8px #00000042;
     display: flex;
     justify-content: end;
     gap: 5px;
+    z-index: 99;
 
     .edit-tag {
         background-color: rgb(255, 217, 0);

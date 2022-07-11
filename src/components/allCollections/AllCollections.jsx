@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 import './allCollections.scss';
 
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Carousel } from 'react-responsive-carousel';
+
 import { useTranslation } from 'react-i18next';
 
 const AllCollections = () => {
@@ -28,6 +31,8 @@ const AllCollections = () => {
         // console.log(res.data)
 
         navigate('/allCollections/items');
+
+        window.location.reload()
     };
 
     return (
@@ -44,30 +49,38 @@ const AllCollections = () => {
                         />
                     </div>
                     <div className='container'>
-                        {allCollections
-                            .filter((collection) => {
-                                if (search === '') {
-                                    return collection;
-                                } else if (collection.topic.toLowerCase().includes(search.toLowerCase())) {
-                                    return collection;
-                                }
-                            })
-                            .map((collection) => {
-                                const { id, topic, name, description, imageUrl } = collection;
-                                return (
-                                    <article
-                                        className='card mt-3'
-                                        key={id}
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={(e) => handleClickPost(e, id)}
-                                    >
-                                        <h5 style={{ textDecoration: 'none' }}>{t('allCollections topic')}: {topic}</h5>
-                                        <img src={imageUrl} alt={t('allCollections name')} />
-                                        <h4>{t('allCollections name')}: {name}</h4>
-                                        <p>{t('allCollections description')}: {description}</p>
-                                    </article>
-                                );
-                            })}
+                        <Carousel className='slick'>
+                            {allCollections
+                                .filter((collection) => {
+                                    if (search === '') {
+                                        return collection;
+                                    } else if (collection.topic.toLowerCase().includes(search.toLowerCase())) {
+                                        return collection;
+                                    }
+                                })
+                                .map((collection) => {
+                                    const { id, topic, name, description, imageUrl } = collection;
+                                    return (
+                                        <article className='card mt-3' key={id} onClick={(e) => handleClickPost(e, id)}>
+                                            <h5 style={{ textDecoration: 'none' }}>
+                                                {t('allCollections topic')}: {topic}
+                                            </h5>
+                                            <img
+                                                src={imageUrl}
+                                                alt={t('allCollections name')}
+                                                style={{ cursor: 'pointer' }}
+                                                className='allCollections-img'
+                                            />
+                                            <h4>
+                                                {t('allCollections name')}: {name}
+                                            </h4>
+                                            <p>
+                                                {t('allCollections description')}: {description}
+                                            </p>
+                                        </article>
+                                    );
+                                })}
+                        </Carousel>
                     </div>
                 </div>
             </section>

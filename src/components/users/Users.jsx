@@ -43,88 +43,61 @@ const Users = () => {
         }
     };
 
-    const handleDelete = () => {
+    const handleDelete = async (e) => {
+        e.preventDefault();
         const payload = {
             userListId: selected,
             state: 2,
         };
-
-        axios
-            .delete(`http://192.168.43.127:8080/api/admin/change_state`, payload, {
+        try {
+            const res = await axios.delete(`http://192.168.43.127:8080/api/admin/change_state`, payload, {
                 headers: {
                     Authorization: accessToken,
                 },
-            })
-            .then((res) => {
-                console.log(res.data);
-                if (res.data.statusCode === 200) {
-                    setToggle(!toggle);
-                } else if (res.data.statusCode === 401 || res.data.statusCode === 403) {
-                    alert('token is invalid');
-                    navigate('/login');
-                } else if (res.data.statusCode === 400) {
-                    alert(res.data.message);
-                    navigate('/login');
-                }
             });
+        } catch (err) {
+            console.log(err);
+        }
     };
-    const handleBlock = () => {
+
+    const handleBlock = async (e) => {
+        e.preventDefault();
         const payload = {
             userListId: selected,
             state: 0,
         };
 
-        axios
-            .put(`http://192.168.43.127:8080/api/admin/change_state`, payload, {
+        try {
+            const res = await axios.put(`http://192.168.43.127:8080/api/admin/change_state`, payload, {
                 headers: {
                     Authorization: accessToken,
                 },
-            })
-            .then((res) => {
-                console.log(res.data.data);
-                if (res.data.statusCode === 200) {
-                    setToggle(!toggle);
-                } else if (res.data.statusCode === 401 || res.data.statusCode === 403) {
-                    alert('token is invalid');
-                    navigate('/login');
-                } else if (res.data.statusCode === 400) {
-                    alert(res.data.message);
-                    navigate('/login');
-                }
             });
+
+            console.log(res);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
-    const handleUnblock = () => {
+    const handleUnblock = async (e) => {
+        e.preventDefault();
+
         const payload = {
             userListId: selected,
             state: 1,
         };
-
-        axios
-            .put(
-                `http://192.168.43.127:8080/api/admin/change_state`,
-                payload,
-                {
-                    arrId: selected,
-                    status: true,
+        try {
+            const res = await axios.put(`http://192.168.43.127:8080/api/admin/change_state`, payload, {
+                headers: {
+                    Authorization: accessToken,
                 },
-                {
-                    headers: {
-                        Authorization: accessToken,
-                    },
-                },
-            )
-            .then((res) => {
-                if (res.data.status === 200) {
-                    setToggle(!toggle);
-                } else if (res.data.status === 401) {
-                    alert('token is invalid');
-                    navigate('/');
-                } else if (res.data.status === 400) {
-                    alert(res.data.message);
-                    navigate('/');
-                }
             });
+
+            console.log(res.data);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (
@@ -147,7 +120,7 @@ const Users = () => {
                         {t('users delete')}
                     </span>
                     <span className='action-btn btn btn-info'>{t('users admin')}</span>
-                    <span className='action-btn btn btn-dark'>{t('users user')}</span>
+                    <span className='action-btn btn btn-primary'>{t('users user')}</span>
                 </div>
             </div>
             <div className='users-grid'>

@@ -15,10 +15,11 @@ import Collections from './components/collectionItems/CollectionItems';
 import Fields from './components/fields/Fields';
 import SingleItem from './components/singleItem/SingleItem';
 import Language from './components/Language/Language';
+import './style/dark.scss';
 
 const App = () => {
     return (
-        <div className='app'>
+        <div className='app dark'>
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Home />}>

@@ -117,3 +117,31 @@ $bg-color: #dfebff;
         background: $bg-color;
     }
 }
+
+.liked {
+    color: red;
+}
+
+.disliked {
+    color: none;
+}
+
+.single-item__comments-items {
+    display: flex;
+    flex-direction: column;
+    
+    .single-item__comments-item {
+        background: #edf0f5;
+        border: 1px solid #888;
+        margin: 5px;
+        padding: 4px 20px;
+        border-radius: 20px;
+        width: 200px;
+    }
+
+    .comment-name {
+        color: red;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+}

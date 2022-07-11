@@ -11,6 +11,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Carousel } from 'react-responsive-carousel';
+
 import { useTranslation } from 'react-i18next';
 
 const CabinetCreateCollections = () => {
@@ -200,21 +203,29 @@ const CabinetCreateCollections = () => {
                 </div>
             )}
             <div className='container'>
+                <Carousel className='slick'>
                 {ownCollections.map((ownCollection) => {
                     const { id, topic, name, description, imageUrl } = ownCollection;
                     return (
-                        <article className='ownCollection-card mt-3' key={id}>
-                            <h5 style={{ textDecoration: 'none' }}>{t('create collections topic')}: {topic}</h5>
-                            <img src={imageUrl} alt={t('create collections name')} />
-                            <h4>{t('create collections name')}: {name}</h4>
-                            <p>{t('create collections description')}: {description}</p>
-                            <div className='ownCollections__item-actions'>
-                                <EditIcon className='edit-tag' />
-                                <DeleteIcon className='delete-tag' onClick={(e) => handleDelete(e, id)} />
-                            </div>
-                        </article>
+                            <article className='ownCollection-card mt-3' key={id}>
+                                <h5>
+                                    {t('create collections topic')}: {topic}
+                                </h5>
+                                <img src={imageUrl} alt={t('create collections name')} />
+                                <h4>
+                                    {t('create collections name')}: {name}
+                                </h4>
+                                <p>
+                                    {t('create collections description')}: {description}
+                                </p>
+                                <div className='ownCollections__item-actions'>
+                                    <EditIcon className='edit-tag' />
+                                    <DeleteIcon className='delete-tag' onClick={(e) => handleDelete(e, id)} />
+                                </div>
+                            </article>
                     );
                 })}
+                </Carousel>
             </div>
         </div>
     );

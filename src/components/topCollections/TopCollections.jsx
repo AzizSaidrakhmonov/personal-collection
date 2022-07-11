@@ -1,46 +1,34 @@
 import React from 'react';
 import './topCollections.scss';
-// import axios from 'axios';
-// import TopCollectionImg from '../../images/top-collection-img.jpg';
+import TopCollectionImg from '../../images/top-collection-img.jpg';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
 const TopCollections = () => {
     return (
-        <div className='collections'>
-            <div className='top-collections'>
-                <div className='top-collection'>
-                    {/* <img className='top-collection__img' src={TopCollectionImg} alt='collection-img' /> */}
-                    <div className='name'>Book</div>
-                    <div className='topic'>Topic</div>
-                    <div className='description'>Description</div>
+        <Carousel>
+                <div>
+                    <img src={TopCollectionImg} />
+                    <p className="legend">Legend 1</p>
                 </div>
-                <div className='top-collection'>
-                    {/* <img className='top-collection__img' src={TopCollectionImg} alt='collection-img' /> */}
-                    <div className='name'>Book</div>
-                    <div className='topic'>Topic</div>
-                    <div className='description'>Description</div>
+                <div>
+                    <img src={TopCollectionImg} />
+                    <p className="legend">Legend 2</p>
                 </div>
-                <div className='top-collection'>
-                    {/* <img className='top-collection__img' src={TopCollectionImg} alt='collection-img' /> */}
-                    <div className='name'>Book</div>
-                    <div className='topic'>Topic</div>
-                    <div className='description'>Description</div>
+                <div>
+                    <img src={TopCollectionImg} />
+                    <p className="legend">Legend 3</p>
                 </div>
-                <div className='top-collection'>
-                    {/* <img className='top-collection__img' src={TopCollectionImg} alt='collection-img' /> */}
-                    <div className='name'>Book</div>
-                    <div className='topic'>Topic</div>
-                    <div className='description'>Description</div>
+                <div>
+                    <img src={TopCollectionImg} />
+                    <p className="legend">Legend 4</p>
                 </div>
-                <div className='top-collection'>
-                    {/* <img className='top-collection__img' src={TopCollectionImg} alt='collection-img' /> */}
-                    <div className='name'>Book</div>
-                    <div className='topic'>Topic</div>
-                    <div className='description'>Description</div>
+                <div>
+                    <img src={TopCollectionImg} />
+                    <p className="legend">Legend 5</p>
                 </div>
-            </div>
-            <div className='top-items'></div>
-        </div>
+            </Carousel>
     );
 };
 

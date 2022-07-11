@@ -74,8 +74,7 @@ const CabinetCreateTags = () => {
                         </button>
                     </Link>
                     <button onClick={() => setModal(true)} className='btn btn-success'>
-                    {t('create tags create')}
-                        
+                        {t('create tags create')}
                     </button>
                 </div>
             </div>

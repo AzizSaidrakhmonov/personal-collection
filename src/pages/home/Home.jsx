@@ -16,6 +16,7 @@ const Home = () => {
     const [items, setItems] = useState([]);
     const [singleItem, setSingleItem] = useState([]);
     const [ownCollections, setOwnCollections] = useState([]);
+    const [comments, setComments] = useState([]);
 
     const userEmail = localStorage.getItem('email');
     const accessToken = localStorage.getItem('accessToken');
@@ -162,12 +163,22 @@ const Home = () => {
             })
 
             setSingleItem(res.data.data);
+            // setIsLike(res.data.data)
 
         } catch (err) {
             console.log(err)
         }
     }
 
+    const getComments = async() => {
+        try {
+            const res = await axios.get(`http://192.168.43.127:8080/api/comment/get/${itemId}`)
+            setComments(res.data.data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    
     useEffect(() => {
         getOneUser();
         getAllUsers();
@@ -178,6 +189,7 @@ const Home = () => {
         getItems();
         getSingleItem();
         getOwnCollections();
+        getComments()
     }, []);
 
     return (
@@ -206,7 +218,9 @@ const Home = () => {
                             singleItem: singleItem,
                             getSingleItem: getSingleItem,
                             ownCollections: ownCollections,
-                            getOwnCollections: getOwnCollections
+                            getOwnCollections: getOwnCollections,
+                            comments: comments,
+                            getComments: getComments,
                         }}
                     >
                         <Outlet />

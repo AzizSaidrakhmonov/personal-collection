@@ -11,24 +11,22 @@ $white-color: #ffffff;
     margin-top: 30px;
 }
 
-.card {
-    background: $white-color;
-    padding: 10px 20px;
-    text-align: center;
-    border: none;
+.slick {
     box-shadow: $box-shadow;
+    background: #fff;
+    border-radius: 5px;
+}
 
+.card {
+    padding: 10px 40px 40px 40px;
+    border: none;
+    cursor: pointer;
 
-    &:hover {
-        transform: scale(1.03);
-        transition: all .3s linear;
-    }
-
-    img {
-        width: 300px;
-        height: 200px;
+    
+    .allCollections-img {
         object-fit: cover;
         margin-bottom: 0.75rem;
+        object-fit: cover;
     }
 
     h4 {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import { useStateContext } from '../../context/ToggleSidebar';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -12,10 +12,11 @@ import LanguageIcon from '@mui/icons-material/Language';
 import PaletteIcon from '@mui/icons-material/Palette';
 
 import { useTranslation } from 'react-i18next';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 const Sidebar = () => {
     const { activeMenu } = useStateContext();
-
+    const {dispatch} = useContext(DarkModeContext)
     const { t, i18n } = useTranslation();
 
     return (
@@ -79,12 +80,13 @@ const Sidebar = () => {
                                     {t('sidebar settings language')}
                                 </li>
                             </Link>
-                            <Link to='/theme' style={{ textDecoration: 'none' }}>
-                                <li className='sidebar-dashboard__item'>
+                                <li className='sidebar-dashboard__item mode'>
                                     <PaletteIcon className='sidebar-dashboard__icon' />
                                     {t('sidebar settings theme')}
+                                    <span className='light' onClick={() => dispatch({type: 'LIGHT'})}></span>
+                                    <span className='dark' onClick={() => dispatch({type: 'DARK'})}></span>
                                 </li>
-                            </Link>
+                            
                         </ul>
                     </div>
                 </div>

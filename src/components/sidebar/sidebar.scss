@@ -75,3 +75,26 @@ $box-shadow: 0 2px 8px #00000042;
         }
     }
 }
+
+.mode {
+    cursor: auto;
+
+    &:hover {
+        background: transparent;
+    }
+
+    span {
+        border: 1px solid;
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .dark {
+        background: #000;
+    }
+
+    
+}

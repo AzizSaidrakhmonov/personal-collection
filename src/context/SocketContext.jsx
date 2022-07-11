@@ -6,7 +6,7 @@ export const socketContext = createContext();
 
 
 export const SocketProvider = ({children}) => {
-    const socket = io("");
+    const socket = io("http://192.168.43.127:8080/ws/app/message");
     return (
         <socketContext.Provider value={socket}>
             {children}

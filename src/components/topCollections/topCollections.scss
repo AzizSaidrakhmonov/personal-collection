@@ -18,10 +18,6 @@ $white-color: #ffffff;
             box-shadow: $box-shadow;
             padding: 20px;
             cursor: pointer;
-
-            // &__img {
-            //     width: 100px;
-            // }
         }
 
         .top-items {
@@ -30,8 +26,4 @@ $white-color: #ffffff;
             }
         }
     }
-}
-
-img {
-    width: 100px;
 }

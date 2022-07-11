@@ -10,10 +10,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import e from 'cors';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { CSVLink } from 'react-csv';
+import FileDownload from 'js-file-download';
 
 import { useTranslation } from 'react-i18next';
 
 const CollectionItems = () => {
+    const [csv, setCsv] = useState([]);
     const { oneUser, tags, fields, items, getItems, getSingleItem } = useContext(UserContext);
 
     const navigate = useNavigate();
@@ -83,7 +86,7 @@ const CollectionItems = () => {
 
         try {
             const res = await axios.post(
-                `http://192.168.43.127:8080/api/item/add/${oneUser.id}/${collectionId}`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/item/add/${oneUser.id}/${collectionId}`,
                 payload,
                 {
                     headers: {
@@ -102,11 +105,14 @@ const CollectionItems = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.get(`http://192.168.43.127:8080/api/item/get/${oneUser.id}/${collectionId}/${itemId}`, {
-                headers: {
-                    Authorization: accessToken,
+            const res = await axios.get(
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/item/get/${oneUser.id}/${collectionId}/${itemId}`,
+                {
+                    headers: {
+                        Authorization: accessToken,
+                    },
                 },
-            });
+            );
             getSingleItem();
         } catch (err) {
             console.log(err);
@@ -121,7 +127,7 @@ const CollectionItems = () => {
         console.log(id);
         try {
             const res = await axios.delete(
-                `http://192.168.43.127:8080/api/item/delete/${oneUser.id}/${collectionId}/${id}`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/item/delete/${oneUser.id}/${collectionId}/${id}`,
                 {
                     headers: {
                         Authorization: accessToken,
@@ -133,6 +139,12 @@ const CollectionItems = () => {
         } catch (err) {
             console.log(err);
         }
+    };
+
+    const handleSave = () => {
+        axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/collection/export/${collectionId}`).then((res) => {
+            FileDownload(res?.data, 'collections.csv');
+        });
     };
 
     useEffect(() => {
@@ -156,6 +168,11 @@ const CollectionItems = () => {
                     <Link to='/fields'>
                         <button className='btn btn-success mx-3'>{t('items field btn')}</button>
                     </Link>
+                </div>
+                <div className='export-csv'>
+                    <button onClick={handleSave} className='btn btn-primary' data={csv}>
+                        Export to CSV
+                    </button>
                 </div>
             </div>
             {modal && (

@@ -1,4 +1,33 @@
 .app.dark {
     background: #222;
-    color: rgb(0, 186, 0);
+    color: #888;
+
+    .login-page,
+    .register-page {
+        background: #edf0f5;
+    }
+
+    .sidebar {
+        background: #222;
+    }
+
+    .mode {
+        .light {
+            background: #fff;
+        }
+    }
+
+    .slick {
+        background: #000;
+
+        .card {
+            background: #000;
+
+        }
+    }
+
+    .legend {
+        background: rgb(10, 111, 14);
+        color: #000;
+    }
 }

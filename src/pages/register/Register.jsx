@@ -14,7 +14,7 @@ const Register = () => {
         e.preventDefault();
         const { name, email, password } = e.target.elements;
 
-        const res = await axios.post('http://192.168.43.127:8080/api/auth/register', {
+        const res = await axios.post('http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/auth/register', {
             name: name.value,
             email: email.value,
             password: password.value,

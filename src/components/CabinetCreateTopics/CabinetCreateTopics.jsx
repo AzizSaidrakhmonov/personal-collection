@@ -26,7 +26,7 @@ const CabinetCreateTopics = () => {
 
         try {
             const res = await axios.post(
-                'http://192.168.43.127:8080/api/topic/add',
+                'http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/topic/add',
                 {
                     name: name.value,
                 },
@@ -46,7 +46,7 @@ const CabinetCreateTopics = () => {
     const handleDelete = async (e, id) => {
         console.log(id);
         try {
-            const res = await axios.delete(`http://192.168.43.127:8080/api/topic/delete/${id}`, {
+            const res = await axios.delete(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/topic/delete/${id}`, {
                 headers: {
                     Authorization: accessToken,
                 },

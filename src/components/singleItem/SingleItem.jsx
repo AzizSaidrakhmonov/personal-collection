@@ -15,7 +15,6 @@ const SingleItem = () => {
     const itemId = localStorage.getItem('itemId');
 
     const { singleItem, oneUser, getSingleItem, comments, getComments } = useContext(UserContext);
-    const socket = useContext(SocketContext);
 
     console.log(comments);
 
@@ -32,7 +31,7 @@ const SingleItem = () => {
     const handleLike = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.get(`http://192.168.43.127:8080/api/item/like/${oneUser.id}/${itemId}`, {
+            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/item/like/${oneUser.id}/${itemId}`, {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -44,13 +43,6 @@ const SingleItem = () => {
         }
     };
 
-    useEffect(() => {
-        socket.on('server-comment', (data) => {
-            console.log(data)
-            setItem(data)
-        })
-    }, [socket])
-
     const addComment = async (e) => {
         e.preventDefault();
 
@@ -58,8 +50,10 @@ const SingleItem = () => {
             const { name } = e.target.elements;
 
             const res = await axios.post(
-                `http://192.168.43.127:8080/api/comment/add/${oneUser.id}/${itemId}`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/comment/add`,
                 {
+                    userId: oneUser.id,
+                    itemId: itemId,
                     name: name.value,
                 },
                 {
@@ -70,13 +64,6 @@ const SingleItem = () => {
             );
 
             getComments();
-
-            socket.emit("new-comment", {
-                userId: oneUser.id,
-                itemId: itemId,
-                name: name.value
-            })
-            
         } catch (err) {
             console.log(err);
         }

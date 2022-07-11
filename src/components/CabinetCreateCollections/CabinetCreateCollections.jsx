@@ -44,7 +44,7 @@ const CabinetCreateCollections = () => {
         imageData.append('file', file, file.name);
 
         try {
-            const res1 = await axios.post(`http://192.168.43.127:8080/api/image/profile/pic`, imageData, {
+            const res1 = await axios.post(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/image/profile/pic`, imageData, {
                 headers: {
                     Authorization: accessToken,
                     'Content-Type': 'multipart/form-data',
@@ -52,7 +52,7 @@ const CabinetCreateCollections = () => {
             });
 
             const res2 = await axios.post(
-                `http://192.168.43.127:8080/api/collection/add/${userId}`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/collection/add/${userId}`,
                 {
                     topic: topic,
                     imageUrl: res1.data.data,
@@ -76,7 +76,7 @@ const CabinetCreateCollections = () => {
     const handleDelete = async (e, id) => {
         console.log(id);
         try {
-            const res = await axios.delete(`http://192.168.43.127:8080/api/collection/delete/${userId}/${id}`, {
+            const res = await axios.delete(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/collection/delete/${userId}/${id}`, {
                 headers: {
                     Authorization: accessToken,
                 },

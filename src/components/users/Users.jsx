@@ -14,7 +14,7 @@ const Users = () => {
     const [search, setSearch] = useState('');
     const [toggle, setToggle] = useState(false);
 
-    const { oneUser, users } = useContext(UserContext);
+    const { oneUser, users, getAllUsers } = useContext(UserContext);
 
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
@@ -46,15 +46,16 @@ const Users = () => {
     const handleDelete = async (e) => {
         e.preventDefault();
         const payload = {
-            userListId: selected,
+            userIdList: selected,
             state: 2,
         };
         try {
-            const res = await axios.delete(`http://192.168.43.127:8080/api/admin/change_state`, payload, {
+            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/admin/change_state`, payload, {
                 headers: {
                     Authorization: accessToken,
                 },
             });
+            getAllUsers();
         } catch (err) {
             console.log(err);
         }
@@ -63,16 +64,17 @@ const Users = () => {
     const handleBlock = async (e) => {
         e.preventDefault();
         const payload = {
-            userListId: selected,
-            state: 0,
+            userIdList: selected,
+            state: 1,
         };
 
         try {
-            const res = await axios.put(`http://192.168.43.127:8080/api/admin/change_state`, payload, {
+            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/admin/change_state`, payload, {
                 headers: {
                     Authorization: accessToken,
                 },
             });
+            getAllUsers();
 
             console.log(res);
         } catch (err) {
@@ -84,21 +86,38 @@ const Users = () => {
         e.preventDefault();
 
         const payload = {
-            userListId: selected,
-            state: 1,
+            userIdList: selected,
+            state: 0,
         };
         try {
-            const res = await axios.put(`http://192.168.43.127:8080/api/admin/change_state`, payload, {
+            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/admin/change_state`, payload, {
                 headers: {
                     Authorization: accessToken,
                 },
             });
-
+            getAllUsers();
             console.log(res.data);
         } catch (err) {
             console.log(err);
         }
     };
+
+    const handleUser = async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/admin/change_role/${selected}`, {
+                headers: {
+                    Authorization: accessToken,
+                },
+            });
+            getAllUsers();
+            console.log(res.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
 
     return (
         <div className='users'>
@@ -119,8 +138,6 @@ const Users = () => {
                     <span className='action-btn btn btn-warning' onClick={handleDelete}>
                         {t('users delete')}
                     </span>
-                    <span className='action-btn btn btn-info'>{t('users admin')}</span>
-                    <span className='action-btn btn btn-primary'>{t('users user')}</span>
                 </div>
             </div>
             <div className='users-grid'>
@@ -176,11 +193,10 @@ const Users = () => {
                                         <td>{name}</td>
                                         <td>{email}</td>
                                         <td>{role}</td>
-                                        <td className={`${state ? 'active' : 'block'}`}>
-                                            {e.state === 1 ? 'Active' : e.state === 0 ? 'Blocked' : e.state}
-                                        </td>
+                                        <td>{state}</td>
                                         <td>
                                             <button className='btn btn-primary'>{t('users table preview')}</button>
+                                            <button className='btn btn-success mx-3' onClick={handleUser}>Change Role</button>
                                         </td>
                                     </tr>
                                 );

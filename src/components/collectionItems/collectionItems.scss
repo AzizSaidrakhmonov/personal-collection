@@ -198,3 +198,9 @@ $box-shadow: 0 2px 8px #00000042;
     }
 
 }
+
+.create-items__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

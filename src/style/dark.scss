@@ -5,7 +5,10 @@
 
     .login-page,
     .register-page {
-        background: #edf0f5;
+        background: #222;
+        &__form {
+            background: #333;
+        }
     }
 
     .sidebar {

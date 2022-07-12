@@ -27,7 +27,7 @@ const Fields = () => {
 
         try {
             const res = await axios.post(
-                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/field/add/${oneUser.id}/${collectionId}`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/field/add/${oneUser.id}/${collectionId}`,
                 {
                     name: name,
                     type: type,
@@ -48,7 +48,7 @@ const Fields = () => {
         console.log(id);
         try {
             const res = await axios.delete(
-                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/field/delete/${oneUser.id}/${collectionId}/${id}`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/field/delete/${oneUser.id}/${collectionId}/${id}`,
                 {
                     headers: {
                         Authorization: accessToken,

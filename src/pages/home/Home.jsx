@@ -26,7 +26,7 @@ const Home = () => {
 
     const getAllUsers = async () => {
         try {
-            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/user/get_all_users', {
+            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/user/get_all_users', {
                 headers: {
                     accessToken: `${accessToken}`,
                 },
@@ -40,7 +40,7 @@ const Home = () => {
 
     const getOneUser = async () => {
         try {
-            const res2 = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/user/get/${userEmail}`, {
+            const res2 = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/user/get/${userEmail}`, {
                 headers: {
                     accessToken: `${accessToken}`,
                 },
@@ -54,7 +54,7 @@ const Home = () => {
 
     const getAllCollections = async () => {
         try {
-            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/collection/get_all', {
+            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/collection/get_all', {
                 headers: {
                     accessToken: `${accessToken}`,
                 },
@@ -69,7 +69,7 @@ const Home = () => {
     
     const getTopics = async () => {
         try {
-            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/topic/get_all', {
+            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/topic/get_all', {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -83,7 +83,7 @@ const Home = () => {
     
     const getTags = async () => {
         try {
-            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/tag/get_all', {
+            const res = await axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/tag/get_all', {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -114,7 +114,7 @@ const Home = () => {
     
     const getFields = async () => {
         try {
-            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/field/get_all/${oneUser.id}/${collectionId}`, {
+            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/field/get_all/${oneUser.id}/${collectionId}`, {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -128,7 +128,7 @@ const Home = () => {
     
     const getOwnCollections = async () => {
         try {
-            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/collection/get/${oneUser.id}`, {
+            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/collection/get/${oneUser.id}`, {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -142,7 +142,7 @@ const Home = () => {
 
     const getItems = async () => {
         try{
-            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/item/get_all/${collectionId}`, {
+            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/item/get_all/${collectionId}`, {
                 headers: {
                     Authorization: accessToken,
                 }
@@ -157,7 +157,7 @@ const Home = () => {
 
     const getSingleItem = async () => {
         try {
-            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/item/get/${oneUser.id}/${collectionId}/${itemId}`, {
+            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/item/get/${oneUser.id}/${collectionId}/${itemId}`, {
                 headers: {
                     Authorization: accessToken
                 }
@@ -173,7 +173,7 @@ const Home = () => {
 
     const getComments = async() => {
         try {
-            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/comment/get/${itemId}`)
+            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/comment/get/${itemId}`)
             setComments(res.data.data)
         } catch (err) {
             console.log(err)
@@ -182,7 +182,7 @@ const Home = () => {
 
     const getTopCollections = async() => {
         try {
-            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/user/get_main_page`)
+            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/user/get_main_page`)
             setTopCollections(res.data.data)
         } catch (err) {
             console.log(err)

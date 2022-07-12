@@ -25,7 +25,7 @@ const CabinetCreateTags = () => {
             const { name } = e.target.elements;
 
             const res = await axios.post(
-                'http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/tag/add',
+                'http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/tag/add',
                 {
                     name: name.value,
                 },
@@ -45,7 +45,7 @@ const CabinetCreateTags = () => {
     const handleDelete = async (e, id) => {
         console.log(id);
         try {
-            const res = await axios.delete(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/tag/delete/${id}`, {
+            const res = await axios.delete(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/tag/delete/${id}`, {
                 headers: {
                     Authorization: accessToken,
                 },

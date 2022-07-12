@@ -50,7 +50,7 @@ const Users = () => {
             state: 2,
         };
         try {
-            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/admin/change_state`, payload, {
+            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/admin/change_state`, payload, {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -69,7 +69,7 @@ const Users = () => {
         };
 
         try {
-            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/admin/change_state`, payload, {
+            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/admin/change_state`, payload, {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -90,7 +90,7 @@ const Users = () => {
             state: 0,
         };
         try {
-            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/admin/change_state`, payload, {
+            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/admin/change_state`, payload, {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -106,7 +106,7 @@ const Users = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/admin/change_role/${selected}`, {
+            const res = await axios.put(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/admin/change_role/${selected}`, {
                 headers: {
                     Authorization: accessToken,
                 },

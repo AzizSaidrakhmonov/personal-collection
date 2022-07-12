@@ -18,7 +18,7 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/search/get').then((res) => {
+        axios.get('http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/search/get').then((res) => {
             setSearchBar(res.data?.data);
             console.log(res.data.data)
         });

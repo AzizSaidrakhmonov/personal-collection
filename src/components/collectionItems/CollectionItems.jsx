@@ -84,7 +84,7 @@ const CollectionItems = () => {
 
         try {
             const res = await axios.post(
-                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/item/add/${oneUser.id}/${collectionId}`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/item/add/${oneUser.id}/${collectionId}`,
                 payload,
                 {
                     headers: {
@@ -104,7 +104,7 @@ const CollectionItems = () => {
 
         try {
             const res = await axios.get(
-                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/item/get/${oneUser.id}/${collectionId}/${itemId}`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/item/get/${oneUser.id}/${collectionId}/${itemId}`,
                 {
                     headers: {
                         Authorization: accessToken,
@@ -125,7 +125,7 @@ const CollectionItems = () => {
         console.log(id);
         try {
             const res = await axios.delete(
-                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/item/delete/${oneUser.id}/${collectionId}/${id}`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/item/delete/${oneUser.id}/${collectionId}/${id}`,
                 {
                     headers: {
                         Authorization: accessToken,
@@ -140,7 +140,7 @@ const CollectionItems = () => {
     };
 
     const handleSave = () => {
-        axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/collection/export/${collectionId}`).then((res) => {
+        axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/collection/export/${collectionId}`).then((res) => {
             // FileDownload(res?.data, 'collections.csv');
         });
     };

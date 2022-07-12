@@ -31,7 +31,7 @@ const SingleItem = () => {
     const handleLike = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/item/like/${oneUser.id}/${itemId}`, {
+            const res = await axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/item/like/${oneUser.id}/${itemId}`, {
                 headers: {
                     Authorization: accessToken,
                 },
@@ -57,7 +57,7 @@ const SingleItem = () => {
             const { name } = e.target.elements;
 
             const res = await axios.post(
-                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/comment/add`,
+                `http://ec2-54-167-37-126.compute-1.amazonaws.com:8082/api/comment/add`,
                 {
                     userId: oneUser.id,
                     itemId: itemId,

@@ -7,11 +7,9 @@ import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import e from 'cors';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { CSVLink } from 'react-csv';
-import FileDownload from 'js-file-download';
+// import FileDownload from 'js-file-download';
 
 import { useTranslation } from 'react-i18next';
 
@@ -143,7 +141,7 @@ const CollectionItems = () => {
 
     const handleSave = () => {
         axios.get(`http://ec2-54-167-37-126.compute-1.amazonaws.com:8081/api/collection/export/${collectionId}`).then((res) => {
-            FileDownload(res?.data, 'collections.csv');
+            // FileDownload(res?.data, 'collections.csv');
         });
     };
 

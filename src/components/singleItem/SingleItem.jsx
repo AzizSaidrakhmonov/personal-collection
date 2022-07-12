@@ -43,6 +43,13 @@ const SingleItem = () => {
         }
     };
 
+    // useEffect(() => {
+    //     socket.on('server-comment', (data) => {
+    //         console.log(data)
+    //         setItem(data)
+    //     })
+    // }, [socket])
+
     const addComment = async (e) => {
         e.preventDefault();
 
@@ -64,6 +71,13 @@ const SingleItem = () => {
             );
 
             getComments();
+
+            // socket.emit("new-comment", {
+            //     userId: oneUser.id,
+            //     itemId: itemId,
+            //     name: name.value
+            // })
+
         } catch (err) {
             console.log(err);
         }
